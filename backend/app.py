@@ -8,11 +8,8 @@ import logging, json
 
 
 
-core_url='http://127.0.0.1:5000'
-frontendURL = 'http://localhost:4200'
-
-
 credentials = json.load(open('credentials.json'))
+
 
 connection_url=sa.engine.URL.create(drivername=credentials["driver"],
                                     username=credentials["user"],
@@ -21,6 +18,8 @@ connection_url=sa.engine.URL.create(drivername=credentials["driver"],
                                     password=credentials["pas"],
                                     database=credentials["database"])
 
+
+frontendURL = credentials['frontend_url']
 
 
 app=Flask(__name__)

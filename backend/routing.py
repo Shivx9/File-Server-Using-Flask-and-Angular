@@ -4,7 +4,7 @@ sys.dont_write_bytecode = True   # Prevent data logging in PyCache
 
 from application.models.models import *
 from application.utils.misc import *
-from app import app, db, migrate, core_url, frontendURL
+from app import app, db, migrate, frontendURL
 from functools import wraps
 from flask_jwt_extended import JWTManager, create_access_token, current_user,jwt_required, get_jti, get_jwt, verify_jwt_in_request
 from mail_server.handlers import sendVerifLink
