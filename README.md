@@ -7,7 +7,7 @@
  
 
 ## Backend -
-- Flask-based app : 'routing.py' refers to he main executable flask base
+- Flask-based app : 'routing.py' refers to the main executable flask base
 - Uses flask-sqlalchemy for database communication
 - Ensure all required python libraries used are installed
 - Create your own **credentials.json** file<br>
