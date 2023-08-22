@@ -1,0 +1,19 @@
+<div #mainDiv *ngIf="isActivated" id="context-menu">
+    <p class="p-3 hover:bg-slate-300" *ngFor="let i of activeMenuItems" (click)="optionClicked(i.name)">{{i.name}}</p>
+</div>
+
+<div *ngIf="menuOpen" class="fixed top-0 left-0 z-10 pos w-full h-full bg-black bg-opacity-60 flex" (click)="clickOff($event)">
+    <div class="mx-32 my-16 p10 bg-slate-900 flex-auto rounded-lg z-20">
+        
+        <form *ngIf="actionType=='rename'" [formGroup]="renameMenu" (ngSubmit)="renameRequest()">
+            <label class="m-3">New Name</label>
+            <input type="text" formControlName="name">
+            <p class="inputWarnings" *ngIf="invalidInput">Enter a valid name</p>
+            <button class="m-3 p-3 bg-slate-700 disabled:text-slate-400 disabled:hover:bg-slate-700 hover:bg-slate-300 hover:text-slate-900" type="submit" [disabled]="renameMenu.invalid">Rename</button>
+
+        </form>
+
+
+
+    </div>
+</div>

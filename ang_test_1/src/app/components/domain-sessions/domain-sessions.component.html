@@ -1,0 +1,21 @@
+<app-navbar></app-navbar>
+
+<div class="mx-10">
+    <div *ngIf="!errorWhileLoading">
+        <p class="mt-10 pb-10 formTitle">Your Allocated Domain Sessions</p>
+        <ng-container *ngFor="let i of domains;">
+            <app-item [item]='i' [root]="i.id"></app-item>
+        </ng-container>
+    </div>
+
+    <div *ngIf="hasLoaded && (isEmpty || errorWhileLoading)" class="bg-slate-700 outline-2 outline-dashed mt-10 rounded-3xl">
+        <p *ngIf="errorWhileLoading" class="p-10">
+            Error while loading data
+        </p>
+
+        <p *ngIf="isEmpty" class="p-10">
+            No directory sessions assigned
+        </p>
+    </div>
+</div>
+

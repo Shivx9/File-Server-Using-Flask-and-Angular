@@ -1,0 +1,13 @@
+/* :host{
+    padding-left: 3rem;
+    padding-right: 3rem ;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 2rem;
+    background-color: rgb(30, 40, 68);
+}
+
+:hover{
+    background-color: rgb(201, 235, 255);
+    color: black;
+} */

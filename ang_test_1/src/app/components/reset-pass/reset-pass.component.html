@@ -1,0 +1,43 @@
+<div class="absolute translate-x-1/2 translate-y-1/2  outline-1 rounded-2xl outline-double content-stretch w-1/2 p-10">
+   
+   
+    <form *ngIf="!hasKey" [formGroup]="passResetRequest" (ngSubmit)="sendReq()">
+        <label class="p-3 flex">Registered Email : </label>
+        <input formControlName="email" type="text" class="p-3 w-full flex" name="email" id="email">
+        <ul class="bg-red-700">
+            <li *ngIf="this.passResetRequest.controls['email'].invalid && this.passResetRequest.controls['email'].touched" id="emailWarning" class="inputWarnings">
+                -> Enter a valid email
+            </li>
+            <li *ngIf="errorOccured" id="credWarning" class="inputWarnings">
+                -> An error occured. Please check your input and try again
+            </li>
+        </ul>
+        <button class="bg-slate-700 font-bold p-3 w-full mt-5 hover:bg-slate-300 hover:text-black" type="submit">Submit</button>
+    </form>
+
+
+    <form #resetForm *ngIf="hasKey" [formGroup]="resetPass" (ngSubmit)="reset()">
+        <label class="p-3 flex">New Password</label>
+        <input #pass formControlName="password" type="text" class="p-3 w-full flex" name="password" id="password" required>
+        <label  class="p-3 flex">Confirm Password</label>
+        <input #confPass formControlName="confPass" type="text" class="p-3 w-full flex" name="password" id="password">
+        <ul class="bg-red-700">
+            <li *ngIf="errorOccured" id="credWarning" class="inputWarnings">
+                <i class="fa-stop fas"></i> An error occured. Please check your input and try again
+            </li>
+        </ul>
+        <button class="bg-slate-700 font-bold p-3 w-full mt-5 hover:bg-slate-300 hover:text-black" type="submit" [disabled]="confPass.value==pass.value && resetForm['valid']">Submit</button>
+    </form>
+
+
+    <p *ngIf="!errorOccured && (requestSentBool || passResetBool)" class="bg-green-700 p-3 mt-5">
+        <span *ngIf="requestSentBool">
+            Password reset link sent. Please check your mail.
+        </span>
+        <span *ngIf="passResetBool">
+            Password reset succesfully. Proceed to login <span class="underline underline-offset-4"><a routerLink="/login"> here.</a></span>
+        </span>
+    </p>
+
+
+</div>

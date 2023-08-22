@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<app-context-menu #contextMenuContent [params]="params" (reloadView)="make_api_call()"></app-context-menu>
+
+<div class="mt-5 mx-5">
+    <div class="py-5 flex" *ngIf="!errorWhileLoading">
+        <app-breadcrumb [currDomain]="root"></app-breadcrumb>
+        <app-upload-btn [params]="params" (reloadView)="make_api_call()"></app-upload-btn>
+    </div>
+
+    <div class="bg-slate-950" *ngIf="!errorWhileLoading">
+        <ng-container *ngFor="let i of directories;">
+            <app-item 
+                [item]='i' 
+                [root]="params['domain']" 
+                (contextmenu)='rtItemMenu($event, i, params["domain"])'  
+                (multi_select)=" $event ? multi_targets.push({'item':i, 'root': params['domain']})  : multi_targets.splice( multi_targets.indexOf({'item':i, 'root': params['domain']}), 1)">
+            </app-item>
+
+        </ng-container>
+    </div>
+
+    <div *ngIf="hasLoaded && (isEmpty || errorWhileLoading)" class="bg-slate-700 outline-2 outline-dashed mt-10 rounded-3xl">
+        <p *ngIf="errorWhileLoading" class="p-10">
+            Error while loading data
+        </p>
+
+        <p *ngIf="isEmpty" class="p-10">
+            Empty Directory
+        </p>
+    </div>
+
+</div>

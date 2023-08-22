@@ -1,0 +1,17 @@
+<div class="m-20 w-full">
+    <div *ngIf="isProcessing">
+        <p>Processing.....</p>
+    </div>
+
+    <div *ngIf="!isProcessing && wasSuccessful" class="bg-lime-800 p-5">
+        <p>
+            Account verification successful. You may login from <a class="underline underline-offset-8" routerLink="/login">here.</a>
+        </p>
+    </div>
+
+    <div *ngIf="!isProcessing && !wasSuccessful" class="bg-red-800 p-5">
+        <p>
+            Error encountered. Verify and try again
+        </p>
+    </div>
+</div>

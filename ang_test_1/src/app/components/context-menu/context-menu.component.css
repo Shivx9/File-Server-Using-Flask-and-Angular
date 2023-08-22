@@ -1,0 +1,12 @@
+:host {
+    position: absolute;
+    display: block;
+    left: 167px;    
+    z-index: 1000;
+    background-color: white;
+    color: rgb(83, 83, 83);
+    user-select: none;
+    font-weight: bolder;
+    width: 10rem;
+    height:min-content;
+  }

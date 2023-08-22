@@ -1,0 +1,83 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+
+
+
+/* body{
+    --tw-bg-opacity: 1;
+    background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+} */
+
+body{
+    margin: 0;
+    /* font-size: 1rem;
+    
+    @media screen {
+        sm
+    } */
+}
+
+input{
+    color: rgb(48, 48, 48);
+}
+
+nav{
+    float: right;
+}
+
+
+
+
+#header{
+    background-color: #e7e7e7;
+    color: rgb(56, 56, 56);
+    font-weight:bold;
+
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+
+#headerLogo{
+    float: left;
+    mask-repeat: no-repeat;
+}
+
+
+.headerTile{
+    display: inline-block;
+    padding: 1.5em 2em;
+    
+}
+.headerTile:hover{
+    background-color: rgba(15, 23, 42, 0.2);
+}
+
+.inputWarnings{
+    /* display: none; */
+    padding: 9px;
+    background-color: rgb(119, 0, 0);
+    display: block;
+}
+
+.formTitle{
+    font-size: 2rem;
+}
+
+
+
+
+
+
+.fa-folder{
+    color: rgb(255, 249, 164);
+}
+
+
+.fa-code{
+    color: rgb(247, 40, 74);
+}

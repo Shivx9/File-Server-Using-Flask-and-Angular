@@ -1,0 +1,25 @@
+<form #testForm="ngForm" (ngSubmit)="test_submit(testForm.value)" class="m-auto px-48">
+    <label class="flex p-1">Name</label>
+    <input type="text" name="name" class="rounded-xl bg-blue-300 p-3 flex" #name="ngModel" ngModel required>
+    <label [hidden]="name.valid || !name.touched" class="container p-3 my-2 text-red-900 bg-red-300">Enter your name</label>
+
+    <label class="flex p-1">Email</label>
+    <input type="text" name="email" class="rounded-xl bg-blue-300 flex p-3" #email='ngModel' ngModel required>
+    <label [hidden]="email.valid || !email.touched" class="container p-3 my-2 text-red-900 bg-red-300">Enter an email</label>
+
+    <label class="flex p-1">Password</label>
+    <input type="password" name="password" class="rounded-xl bg-blue-300 flex p-3" #password="ngModel" ngModel required>
+    <label [hidden]="password.valid || !password.touched" class="container p-3 my-2 text-red-900 bg-red-300">Password not entered</label>
+
+    <label class="flex p-1">Confirm Password</label>
+    <input type="password" name="conf_password" class="rounded-xl bg-blue-300 flex p-3" #conf_password="ngModel" ngModel required>
+    <label [hidden]="conf_password.value==password.value || conf_password.invalid" ngClass="hidden" class="container p-3 my-2 text-red-900 bg-red-300">Passwords don't match</label>
+    
+
+    <label class="flex p-1">Test File</label>
+    <input type="file" name="testFile" #testFile='ngModel' ngModel required>
+
+
+    <input type="submit" class="flex p-5 rounded-xl bg-slate-400 my-3" value="Click to submit" [disabled]="testForm.invalid">
+
+</form>

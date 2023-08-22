@@ -1,0 +1,29 @@
+<div class="absolute translate-x-1/2 translate-y-1/2  outline-1 rounded-2xl outline-double content-stretch w-1/2 p-10">
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <span class="formTitle">Login</span>  <span class="float-right">   or <a class="underline-offset-8 underline" routerLink="/register">Register</a> </span>        <label class="p-3 flex">Email</label>
+        <input formControlName="email" type="text" class="p-3 w-full flex" name="email" id="email">
+        <label class="p-3 flex">Password</label>
+        <input formControlName="password" type="password" class="p-3 w-full flex" name="password" id="pass">
+        <br>
+        <ul class="bg-red-700">
+            <li *ngIf="forbidden" id="credWarning" class="inputWarnings">
+                <i class="fa-stop fas"></i>  Maximum invalid login attempts exceeded.<br><span class="underline underline-offset-4"><a routerLink="/resetpass">Reset password</a></span> to continue
+            </li>
+            <li *ngIf="this.loginForm.controls['email'].invalid && this.loginForm.controls['email'].touched" id="emailWarning" class="inputWarnings">
+                <i class="fa-stop fas"></i> Enter a valid email
+            </li>
+            <li *ngIf="this.loginForm.controls['password'].invalid && this.loginForm.controls['password'].touched" id="passWordWarning" class="inputWarnings">
+                <i class="fa-stop fas"></i> Password must be more than 1 character
+            </li>
+            <li *ngIf="invalidCreds" id="credWarning" class="inputWarnings">
+                <i class="fa-stop fas"></i>  Credentials don't Match
+            </li>
+            
+            
+        </ul>
+
+        <button class="bg-slate-700 font-bold p-3 w-full mt-5 hover:bg-slate-300 hover:text-black" type="submit">Submit</button>
+        <p class="underline-offset-8 underline mt-9"><a routerLink="/resetpass">Forgot Password ?</a></p>
+    </form>
+
+</div>
