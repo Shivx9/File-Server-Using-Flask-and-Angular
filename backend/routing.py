@@ -25,14 +25,13 @@ tempFolder  = os.path.join(os.getcwd(),'temp_folder')  # temp folder for zipping
 
 
 # !!!!!!!!!!!!!!!!!!!!!!! FINE-TUNE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# REMOVE CREDENTIALS.JSON BEFORE PUBLISHING
 # Error catching    ___________________________________________________________ low priority
 # Uniform responses (success = true/false) ___________________________|
 
 
 
 # !!!!!!!!!!!!!!!!!!!!!!!! TO-DO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# Create Admin Console
+# Admin Console
 
 
 
@@ -51,7 +50,6 @@ jwt = JWTManager(app)
 
 @jwt.user_identity_loader
 def user_identity_lookup(u):
-    print("u is ", u)
     return u.id
 
 
@@ -122,31 +120,7 @@ def privelaged_user_required(func):
 @app.route('/test', methods = ["GET", "POST"])
 def testFn():
     return "It works"
-    print(request.form.keys(), "     ", request.files.keys())
 
-    # a=request.form['test']
-    
-    # i=[]
-    # for f in a:
-    #     i.append(f)
-    
-    # arr = eval(request.form['test'])
-
-    # if eval(request.form["test2"])==True:
-    #     print("OK")
-    # else:
-    #     print("Something wronge here")
-
-    # for i in arr:
-    #     print(i)
-    
-    return make_response(
-        jsonify(
-                msg = (request.headers.get('Authorization', "No auth header")),
-                add_msg = 'no',
-                
-            )
-        )
 
 
 
@@ -400,8 +374,6 @@ def explore(baseDirectoryRef):
                 data = json.loads(request.form['to_retrieve']) #json.loads
                 finalFile = ''
                 l = len(data)
-                print("temp folder locatio is ", tempFolder)
-                print('data recd to download of length ', l  ,'is  - ', data)
                 if l==0:   # No files sent
 
                     return "False request", 400
@@ -414,14 +386,11 @@ def explore(baseDirectoryRef):
                         os.mkdir(tempFolder)
 
                     finalFile  = os.path.join( tempFolder , f"files_{secrets.token_hex(10)}.zip")
-                    print("name would be ", finalFile)
 
 
                 # Validation
                 for i in data:
-                    print("Cehccking for ", i)
                     if not (checkValidPath(base, os.path.join(base,i)) or os.path.exists(base, os.path.join(base,i))):
-                        print("validation failed")
                         return "Invalid request", 400
                     
 
@@ -431,9 +400,7 @@ def explore(baseDirectoryRef):
                     finalFile = data[0] #os.path.join(final, data[0])
                 
                 else:         # Multiple files - zip and send
-                    print("zipping")
                     with zipfile.ZipFile(finalFile,'w', zipfile.ZIP_DEFLATED) as z:
-                        print("filing zip in ", z)
                         for i in data:
 
                             if os.path.isfile(i):
@@ -443,10 +410,6 @@ def explore(baseDirectoryRef):
 
                                 for root, dirs, files in os.walk(i):
                                     for file in files:
-                                        print("writing ", os.path.relpath(
-                                                        os.path.join(root, file),
-                                                        os.path.join(i, '..')
-                                                    ), " for ", os.path.join(root,file))
                                         z.write(
                                             os.path.join(root, file),
                                             os.path.relpath(
@@ -634,7 +597,7 @@ def sendPassReset():
 
 
 
-@app.route('/verify/<mode>/<token>', methods=['POST'])
+@app.route('/verify/<mode>/<token>', methods=['GET','POST'])
 def verifyUserReg(mode:str, token:str):
 
     identifier, code = token.split('_')
@@ -651,7 +614,6 @@ def verifyUserReg(mode:str, token:str):
             u.email = search.email
             u.name = search.name
             u.password = search.password
-            u.loginAttempts = 0
             db.session.add(u)
         
         case 'pass':

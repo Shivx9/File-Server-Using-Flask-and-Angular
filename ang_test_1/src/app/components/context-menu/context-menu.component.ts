@@ -89,7 +89,8 @@ export class ContextMenuComponent implements AfterViewInit{
 
   clickOff(event:any){
 
-    if(event.target==event.currentTarget){
+    if(event.target==event.currentTarget)
+    {
       this.closeMenu()
     }
 
