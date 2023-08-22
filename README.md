@@ -29,16 +29,19 @@
 
 - Create a corresponding databse to connect with
 - After configuring credentials.json, creating the corresponding database, and setting up SMTP credentials, run the following commands in the terminal to automatically set up database :
-  - On windows, run :
 ```
+# <------ For Windows -------->
+
 cd backend
 $env:FLASK_APP='routing.py'
 flask db init
 flask db migrate
 flask db upgrade
-```
-  - On linux/ubuntu, run :
-```
+
+
+
+# <------- For Linux -------->
+
 cd backend export FLASK_APP='routing.py'
 flask db init
 flask db migrate
