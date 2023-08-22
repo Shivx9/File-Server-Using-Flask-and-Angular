@@ -24,6 +24,7 @@
     "HASH_SECRET"       :   "anotherSecret",<br>
     "sender_email"      :   "abc@gmail.com",<br>
     "sender_pass"       :   "password123"<br>
+    "frontend_url"      :   "http://localhost:4200"
 }
 ```
 
