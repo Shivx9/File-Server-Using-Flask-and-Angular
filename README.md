@@ -71,7 +71,8 @@ This is intended as an open-source web-app for real-time shared access to files 
 ```
 
 - Create a corresponding databse to connect with
-- After configuring credentials.json, creating the corresponding database, and setting up SMTP credentials, run the following commands in the terminal to automatically set up database :
+- After configuring credentials.json, creating the corresponding database, and setting up SMTP credentials.
+- Run the following commands in the terminal to automatically set up database :
 ```
 # <------ For Windows -------->
 
@@ -140,6 +141,11 @@ Much of the UI and functionalities published here are intended for generic proto
  <tr>
   <td>Set up a secure way to manage admin accounts and a separate dashboard for in-app management of domain sessions for other users</td>
   <td>routing.py : privelaged_user_required()<br>TABLE <b>user</b> : priority</td>
+ </tr>
+
+ <tr>
+  <td>Setting up custom DB enviroments other than MySQL may require also customizing the table declarations</td>
+  <td>models.py : All MySQL datatypes used in class variable definitions</td>
  </tr>
 </table>
 
