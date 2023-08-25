@@ -15,6 +15,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TestFormSecondComponent } from './components/test-form-second/test-form-second.component';
 import { EncodeHttpParamsInterceptorService } from './services/encode-http-params-interceptor.service';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -35,9 +36,12 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     HttpClientModule,
     ReactiveFormsModule,
     AuthModule,
-    CoreFuncModule
-    
+    CoreFuncModule,
+    BrowserAnimationsModule,
   ],  
+  exports:[
+  ],
+
   providers:[
     {
       provide: HTTP_INTERCEPTORS,

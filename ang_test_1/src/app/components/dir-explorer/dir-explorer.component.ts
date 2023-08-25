@@ -20,6 +20,10 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
   @ViewChild('contextMenuContent', {read:ElementRef}) contextMenuContent!:ElementRef
   @Input() root!:string
 
+  activeTasks:{'name':string, 'id':string}[]=[
+
+  ]
+
   directories:Item[]=[]
   rootAsText:string=""
   isEmpty = false
@@ -49,7 +53,7 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
 
   rtItemMenu(event:MouseEvent, item:Item, root:any){
     event.preventDefault()
-
+    
     let menuItems:contextMenuItem[]
     
     if(this.multi_targets.length == 0){
@@ -181,5 +185,31 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
         this.hasLoaded = true
       })
   }
+
+
+  sendCancelReq(id:string){
+    for(let i=0; i<this.activeTasks.length; i++){
+      if (this.activeTasks[i].id==id){
+        this.apiService.cancelAction(this.params['domain'], this.params['dir'], id)
+        .subscribe(res=>{
+          if(res.success){
+            this.activeTasks.splice(i,1)
+          }
+        })
+        break
+      }
+    }
+  }
+
+  completedReq(id:string){
+    for(let i=0; i<this.activeTasks.length; i++){
+      if (this.activeTasks[i].id==id){
+        this.activeTasks.splice(i,1)
+        break
+      }
+    }
+  }
+
+
 
 }

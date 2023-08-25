@@ -13,6 +13,8 @@ export class ContextMenuComponent implements AfterViewInit{
 
   @Input() params:any
   @Output() reloadView = new EventEmitter
+  @Output() newCancellableTask = new EventEmitter<{"name":string,"id":string}>
+  @Output() completedCancellableTask = new EventEmitter<string>
 
   // @ViewChild('mainDiv', {static:false, read:ElementRef}) mainDiv!:ElementRef
 
@@ -189,10 +191,14 @@ export class ContextMenuComponent implements AfterViewInit{
         for(let i of this.targetInfo){
           downPaths.push(getSafePath(i.item.name))
         }
-        this.api.downloadMultiFromDirectory(this.params['domain'], this.params['dir'], downPaths)
+        
+        let t_id = (Math.random() + 1).toString(36).substring(7)
+        this.newCancellableTask.emit({name: "Preparing Files", id: t_id})
+
+        this.api.downloadMultiFromDirectory(this.params['domain'], this.params['dir'], downPaths, t_id)
         .subscribe((blob)=>{
           const objectUrl = URL.createObjectURL(blob);
-    
+          this.completedCancellableTask.emit(t_id)
           // window.open(objectUrl, '_blank')// ,'noopener')
     
           const a = document.createElement('a');

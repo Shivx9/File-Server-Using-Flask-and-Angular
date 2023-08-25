@@ -30,3 +30,24 @@ def checkValidPath(baseDir:str, check:str):
     return True
 
 
+
+################################ Task Management ##################################
+
+currActiveTasks = []   # array of task_IDs for background tasks - so that they can be cancelled if required midway 
+activeTaskLen = 0
+currAbortedTasks =0  # Performance-friendly flag to check if one of the current active tasks might need to be cancelled if this is over 0
+
+def addActiveTask(val:str):
+    currActiveTasks.append(val)
+    global activeTaskLen
+    activeTaskLen+=1
+
+def completeActiveTask(val:str):
+    currActiveTasks.remove(val)
+    global activeTaskLen
+    activeTaskLen-=1
+
+
+
+def checkValidTask(id:str):
+    return currActiveTasks.index(id)

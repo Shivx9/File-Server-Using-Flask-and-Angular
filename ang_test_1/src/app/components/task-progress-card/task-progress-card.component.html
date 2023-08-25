@@ -1,0 +1,20 @@
+
+<div (mouseenter)="isHoverTarget=true" (mouseleave)="isHoverTarget=false">
+    <mat-card >
+        <mat-card-header>
+            <mat-card-title-group>
+                <mat-card-subtitle>
+                    {{task.name}}
+                </mat-card-subtitle>
+    
+                <button *ngIf="isHoverTarget" (click)="cancelTask()">
+                    <mat-icon>
+                        cancel
+                    </mat-icon>
+                </button>
+                <mat-spinner *ngIf="!isHoverTarget" diameter="20" class="mb-2.5"></mat-spinner>
+    
+            </mat-card-title-group>
+        </mat-card-header>
+    </mat-card>
+</div>

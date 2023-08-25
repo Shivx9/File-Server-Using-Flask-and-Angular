@@ -180,9 +180,11 @@ export class MyApiEndpointService {
 		)
 	}
 
-	downloadMultiFromDirectory(domainID:any, path:string, filePaths:string[]){
+	downloadMultiFromDirectory(domainID:any, path:string, filePaths:string[], task_id:string){
+
 		let f = new FormData
 		f.append('to_retrieve', JSON.stringify(filePaths))
+		f.append('task_id', task_id)
 
 		return this.http.patch(
 			
@@ -276,6 +278,18 @@ export class MyApiEndpointService {
 
 	}
 	
+
+	cancelAction(domainID:number, path:string, t_id:string):Observable<any>{
+
+		let f = new FormData
+		f.append('task_id', t_id)
+		
+		return this.http.get(Globals.base_api_url + '/cancelTask/' + t_id).pipe(
+			catchError((err)=>{
+				throw new Error("error while cancelling action(s)\n" + err)
+			}))		
+		
+	}
 
 
 

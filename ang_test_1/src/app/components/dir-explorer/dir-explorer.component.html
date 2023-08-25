@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<app-context-menu #contextMenuContent [params]="params" (reloadView)="make_api_call()"></app-context-menu>
+<app-context-menu #contextMenuContent [params]="params" (reloadView)="make_api_call()" (newCancellableTask)="activeTasks.push($event)" (completedCancellableTask)="completedReq($event)"></app-context-menu>
 
 <div class="mt-5 mx-5">
     <div class="py-5 flex" *ngIf="!errorWhileLoading">
@@ -30,3 +30,20 @@
     </div>
 
 </div>
+
+
+<div class="fixed w-1/4 bottom-10 right-10">
+    <mat-accordion>
+        <mat-expansion-panel *ngIf="activeTasks.length>0" expanded="true">
+            <mat-expansion-panel-header>
+                Progress
+            </mat-expansion-panel-header>
+
+            
+            <app-task-progress-card *ngFor="let task of activeTasks" [task]="task" (onTaskCancel)="sendCancelReq($event)"></app-task-progress-card>
+
+
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+

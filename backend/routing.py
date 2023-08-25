@@ -15,8 +15,10 @@ from passlib.hash import pbkdf2_sha256
 import json, html, secrets, os, time, shutil, zipfile, datetime
 
 
-maxLoginAttempts = 3
+maxLoginAttempts = 3        # Max incorrect login attempts
 tempFolder  = os.path.join(os.getcwd(),'temp_folder')  # temp folder for zipping multiple files/folders before sending for download
+
+
 
 
 # !!!!!!!!!!!!!!!!!!!!!!! REGULAR CLEANUP OPERATIONS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -95,6 +97,7 @@ def privelaged_user_required(func):
         
 
         return func(*args, **kwargs)
+    
     return wrapper
 
 
@@ -250,8 +253,8 @@ def explore(baseDirectoryRef):
             return a
 
 
-        if request.method!="":
-            if request.method== "GET":    # Viewing query 
+        match request.method:
+            case "GET":    # Viewing query 
                 # Continue considering requested path leads to a normal directory
                 root = final
                 all:list= os.listdir(root)
@@ -266,7 +269,7 @@ def explore(baseDirectoryRef):
                 return jsonify(root = extendedDirectory, folders = folders, files = files)
             
 
-            elif request.method== "POST":       # Folder-create / File-upload query
+            case "POST":       # Folder-create / File-upload query
                 
                 if request.form['type']!='':
                     if request.form['type']== 'create':        # Create folder
@@ -297,11 +300,13 @@ def explore(baseDirectoryRef):
                         return "Invalid request", 400
 
 
-            elif request.method== "PUT":         # Modify query
+            case "PUT":         # Modify query
                 data = request.form
 
-                if data['type']!='':
-                    if data['type']== 'rename':
+                match data['type']:
+
+                    case 'rename':
+
                         toChange = data['targetPath'] 
                         if not (checkValidName(data['target']) or checkValidPath(final , os.path.join(final ,toChange))):
                                 return jsonify(success= False)
@@ -311,8 +316,7 @@ def explore(baseDirectoryRef):
                         return jsonify(success= True)
 
 
-                    elif data['type']== 'relocate':  
-
+                    case 'relocate':  
 
                         # full relative path of destination directory
                         finalPath = os.path.join(base, data['finalPath'].replace(safe_directory_separator, os.sep)).replace(safe_directory_separator, os.sep)
@@ -364,13 +368,13 @@ def explore(baseDirectoryRef):
                         return jsonify(success= True)
 
 
-                    else:
+                    case _:
                         return "Invalid request parameters", 400
 
 
 
 
-            elif request.method== "PATCH":       # File / Folder retrieval query  
+            case "PATCH":       # File / Folder retrieval query  
                 data = json.loads(request.form['to_retrieve']) #json.loads
                 finalFile = ''
                 l = len(data)
@@ -392,14 +396,28 @@ def explore(baseDirectoryRef):
                 for i in data:
                     if not (checkValidPath(base, os.path.join(base,i)) or os.path.exists(base, os.path.join(base,i))):
                         return "Invalid request", 400
-                    
+                
 
-                    
+                thisTask = request.form['task_id']
+                addActiveTask(thisTask)
+                thisIndex = checkValidTask(thisTask)
+
+                global currAbortedTasks
                 if l==1 and os.path.isfile(data[0]):       # Single file
 
                     finalFile = data[0] #os.path.join(final, data[0])
                 
-                else:         # Multiple files - zip and send
+                else:         # Folder or Multiple files - zip & send
+
+
+                    if currAbortedTasks>0:                                                      # Possibility that some task might need to be aborted
+                        if thisIndex>activeTaskLen or currActiveTasks[thisIndex]!=thisTask:     #Check if cached index and value at that index is still valid
+                            thisIndex = checkValidTask(thisTask)                                # Refresh outdated index
+                            if thisIndex==-1:                                                   # Check for final time in case new index is also invalid
+                                currAbortedTasks-=1
+                                return "Error occured", 500                                     # Abort task
+                        
+
                     with zipfile.ZipFile(finalFile,'w', zipfile.ZIP_DEFLATED) as z:
                         for i in data:
 
@@ -409,7 +427,20 @@ def explore(baseDirectoryRef):
                             else:
 
                                 for root, dirs, files in os.walk(i):
+                                    
+
+                                            
+
                                     for file in files:
+
+                                        if currAbortedTasks>0:                                                      # Possibility that some task might need to be aborted
+                                            if thisIndex>activeTaskLen or currActiveTasks[thisIndex]!=thisTask:     #Check if cached index and value at that index is still valid
+                                                thisIndex = checkValidTask(thisTask)                                # Refresh outdated index
+                                                if thisIndex==-1:                                                   # Check for final time in case new index is also invalid
+                                                    currAbortedTasks-=1
+                                                    return "Error occured", 500                                     # Abort task
+                                                
+                                                
                                         z.write(
                                             os.path.join(root, file),
                                             os.path.relpath(
@@ -419,16 +450,25 @@ def explore(baseDirectoryRef):
                                                 )
                        
                        
-                       
+                if currAbortedTasks>0:                                                          # Possibility that some task might need to be aborted
+                        if thisIndex>activeTaskLen or currActiveTasks[thisIndex]!=thisTask:     #Check if cached index and value at that index is still valid
+                            thisIndex = checkValidTask(thisTask)                                # Refresh outdated index
+                            if thisIndex==-1:                                                   # Check for final time in case new index is also invalid
+                                currAbortedTasks-=1                                             
+                                return "Error occured", 500                                     # Abort task
+
     
                 
                 a= send_file(finalFile, as_attachment= False, download_name=finalFile.split(os.sep)[-1])
+                
+                completeActiveTask(thisTask)
+
                 return a
                     
                     
 
 
-            elif request.method== "DELETE":      # Deletion query
+            case "DELETE":      # Deletion query
                 
                 data= json.loads(request.form['toDelete']) # json.loads
                 l = len(data)
@@ -644,6 +684,16 @@ def verifyUserReg(mode:str, token:str):
 
 
 
+
+@app.route('/cancelTask/<string:id>', methods=["GET"])
+def cancelTask(id:str):
+    try:
+        completeActiveTask(id)
+        global currAbortedTasks
+        currAbortedTasks+=1
+        return jsonify(success = True)
+    except:
+        return jsonify(success = False)
 
 
 

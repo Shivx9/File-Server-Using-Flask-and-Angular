@@ -10,6 +10,8 @@ import { DirExplorerComponent } from 'src/app/components/dir-explorer/dir-explor
 import { BreadcrumbComponent } from 'src/app/components/breadcrumb/breadcrumb.component';
 import { ContextMenuComponent } from 'src/app/components/context-menu/context-menu.component';
 import { UploadBtnComponent } from 'src/app/components/upload-btn/upload-btn.component';
+import { MaterialModule } from '../material/material.module';
+import { TaskProgressCardComponent } from 'src/app/components/task-progress-card/task-progress-card.component';
 
 
 
@@ -21,13 +23,15 @@ import { UploadBtnComponent } from 'src/app/components/upload-btn/upload-btn.com
     NavbarComponent,
     BreadcrumbComponent,
     ContextMenuComponent,
-    UploadBtnComponent
+    UploadBtnComponent,
+    TaskProgressCardComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
   providers:[MyApiEndpointService]
 })
