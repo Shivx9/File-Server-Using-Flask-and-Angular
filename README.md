@@ -4,6 +4,8 @@
  
 This is intended as an open-source web-app for real-time shared access to files on a system, with scoped user access 
 
+![fileserver_demo](https://github.com/Shivx9/File-Server-Using-Flask-and-Angular/assets/61614409/67293b90-6d99-47e0-93c8-3da8f118f627)
+
  ## Functionalities 
 
 - Basic user registration, login & password-recovery with email-based auth
@@ -16,12 +18,12 @@ This is intended as an open-source web-app for real-time shared access to files 
   - Protection against path traversal attacks; filter mechanisms to reject suspicious requests - 
     - Checks for data coherency
     - Strict access denial to paths pointing directly or indirectly to directories out of assigned scope
-  - Time-limited access for fresh user logins
-  - User registration using email-based 2FA
-  - Limited attempts for incorrect password entries before requiring email re-authentication
-  - <p id='domain-entry'>For security purposes, current management of domain sessions can only be modified via direct database interactions</p>
-    - <b>IMPORTANT : </b>use <b>"#"</b> as standard safe directory separator substitute when storing domain paths in the database
-    - Eg. a standard set of data entries for domain sessions in the table 'user_directory_sessions' is 
+    - Time-limited access for fresh user logins
+    - User registration using email-based 2FA
+    - Limited attempts for incorrect password entries before requiring email re-authentication
+    - <p id='domain-entry'>For security purposes, current management of domain sessions can only be modified via direct database interactions</p>
+    - <b>IMPORTANT : </b>use <b>"#"</b> as standard safe directory separator substitute when storing domain paths in the database<br>
+    Eg. a standard set of data entries for domain sessions in the table 'user_directory_sessions' is <br>
     
     <table>
       <tr>
@@ -56,17 +58,17 @@ This is intended as an open-source web-app for real-time shared access to files 
   **Eg.**<br>
 ```
 {
-    "driver"            :   "mysql",<br>
-    "user"              :   "root",<br>
-    "pas"               :   "root",<br>
-    "host"              :   "127.0.0.1",<br>
-    "port"              :   "3306",<br>
-    "database"          :   "mydb",<br>
-    "JWT_SECRET_KEY"    :   "someSecret",<br>
-    "HASH_SECRET"       :   "anotherSecret",<br>
-    "sender_email"      :   "abc@gmail.com",<br>
-    "sender_pass"       :   "password123"<br>
-    "frontend_url"      :   "http://localhost:4200"<br>
+    "driver"            :   "mysql",
+    "user"              :   "root",
+    "pas"               :   "root",
+    "host"              :   "127.0.0.1",
+    "port"              :   "3306",
+    "database"          :   "mydb",
+    "JWT_SECRET_KEY"    :   "someSecret",
+    "HASH_SECRET"       :   "anotherSecret",
+    "sender_email"      :   "abc@gmail.com",
+    "sender_pass"       :   "password123"
+    "frontend_url"      :   "http://localhost:4200"
 }
 ```
 
@@ -97,7 +99,7 @@ flask db upgrade
 
 ## Frontend
 
-- Initialize a basic angular app setup in an empty director in the server
+- Initialize a basic angular app setup along with Anuglar Material in an empty directory in the server
 `ng new <app-name-here>`
 - Move all core files provided in the frontend repo directory "ang-test-1" into the newly created Angular directory. Overwrite common files
 - Open a terminal in this directory & run the frontend angular app (assuming the backend components have gone live)
@@ -151,6 +153,7 @@ Much of the UI and functionalities published here are intended for generic proto
 
 ## Major Dependencies used - 
 - Angular
+  - Angular Material
 - Python
   - flask-jwt-extended
   - passlib
