@@ -342,11 +342,19 @@ def explore(baseDirectoryRef):
                             testFile_name = fileName
                             startingNo = 1
                             while os.path.exists(os.path.join(finalPath, testFile_name)):  
-                                if isFile :
+                                
+                                if isFile :                                                # For Files
                                     nameParsed = fileName.split('.')
-                                    testFile_name = nameParsed[-2] + '(' + str(startingNo) + ')' + '.' + nameParsed[-1]
-                                else:
-                                    testFile_name = fileName + ' (' + str(startingNo) + ')'
+                                    if fileName[0]=='.': # Handling DotFiles
+                                        testFile_name = '.' + nameParsed[0] + '(' + str(startingNo) + ')' 
+                                        if len(nameParsed)>1:
+                                            testFile_name+= '.' + '.'.join(nameParsed[1:])
+                                    
+                                    else: #Handling regular files
+                                        testFile_name = nameParsed[0] + '(' + str(startingNo) + ')' + '.' + '.'.join(nameParsed[1:])
+
+                                else:                                                     # For Directories
+                                    testFile_name = fileName + '(' + str(startingNo) + ')'
                                 startingNo+=1
 
 

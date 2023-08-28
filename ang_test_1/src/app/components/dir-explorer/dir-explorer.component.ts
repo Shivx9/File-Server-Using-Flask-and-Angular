@@ -67,7 +67,7 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
   
         case 'file':
           menuItems=[
-            {name:'open'},
+            // {name:'open'},
             {name:'copy'},
             {name:'cut'},
             {name:'paste'},
@@ -80,7 +80,7 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
   
         case 'folder':
             menuItems=[
-              {name:'open'},
+              // {name:'open'},
               {name:'copy'},
               {name:'cut'},
               {name:'paste'},

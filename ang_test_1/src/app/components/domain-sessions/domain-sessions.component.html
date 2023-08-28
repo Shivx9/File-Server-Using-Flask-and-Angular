@@ -2,7 +2,7 @@
 
 <div class="mx-10">
     <div *ngIf="!errorWhileLoading">
-        <p class="mt-10 pb-10 formTitle">Your Allocated Domain Sessions</p>
+        <p class="py-10 formTitle">Your Allocated Domain Sessions</p>
         <ng-container *ngFor="let i of domains;">
             <app-item [item]='i' [root]="i.id"></app-item>
         </ng-container>
