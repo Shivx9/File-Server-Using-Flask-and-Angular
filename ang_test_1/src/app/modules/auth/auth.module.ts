@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyApiEndpointService } from 'src/app/services/my-api-endpoint.service';
 import { VerifyRegComponent } from 'src/app/components/verify-reg/verify-reg.component';
 import { ResetPassComponent } from 'src/app/components/reset-pass/reset-pass.component';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -17,7 +18,8 @@ import { ResetPassComponent } from 'src/app/components/reset-pass/reset-pass.com
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   providers:[MyApiEndpointService]
 })

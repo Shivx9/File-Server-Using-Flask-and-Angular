@@ -21,6 +21,7 @@ export class LoginComponent implements AfterViewInit{
 
   invalidCreds:any = false
   forbidden:any = false
+  hidepass =true
 
   constructor(private api:MyApiEndpointService, private formBuilder:FormBuilder, private title:Title){
     title.setTitle('Login | '+GlobalWebName)

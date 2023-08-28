@@ -2,16 +2,46 @@
 <div class="absolute translate-x-1/2 translate-y-1/4  outline-1 rounded-2xl outline-double content-stretch w-1/2 p-10">
     <form [formGroup]="regForm" (ngSubmit)="submit()">
         <span class="formTitle">Register</span>  <span class="float-right">   or <a class="underline-offset-8 underline" routerLink="/login">Login</a> </span>
-        <label class="p-3 flex">Name</label>
+        <br>
+        <mat-form-field class="w-full mt-5">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName='name'>
+            <mat-error *ngIf="this.regForm.controls['name'].invalid">Enter a valid name</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full mt-5">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName='email' placeholder="abc@someemail.com">
+            <mat-error *ngIf="this.regForm.controls['email'].invalid">Enter a valid email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full mt-5">
+            <mat-label>Password </mat-label>
+            <input [type]="hidePass? 'password': 'text'" matInput formControlName='password'>
+            <button mat-icon-button (click)="hidePass=!hidePass" matTextSuffix color="primary">
+                <mat-icon>
+                    {{hidePass? 'visibility_off': 'visibility'}}
+                </mat-icon>
+            </button>
+            <mat-error *ngIf="this.regForm.controls['password'].invalid">Enter a valid password</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full mt-5">
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" matInput formControlName='confPass' >
+        </mat-form-field>
+        <mat-error *ngIf="this.regForm.controls['confPass'].touched && !matchedPassword">Passwords don't match</mat-error>
+
+        <!-- <label class="p-3 flex">Name</label>
         <input formControlName="name" type="text" class="p-3 w-full flex" name="name" id="name" >
         <label class="p-3 flex">Email</label>
         <input formControlName="email" type="text" class="p-3 w-full flex" name="email" id="email">
         <label class="p-3 flex">Password</label>
         <input formControlName="password" type="password" class="p-3 w-full flex" name="password" id="pass">
         <label class="p-3 flex">Confirm Password</label>
-        <input formControlName="confPass" type="password" class="p-3 w-full flex" name="confPassword" id="confPass">
-        <br>
-        <ul class="bg-red-700">
+        <input formControlName="confPass" type="password" class="p-3 w-full flex" name="confPassword" id="confPass"> -->
+        <!-- <br> -->
+        <!-- <ul class="bg-red-700">
             <li *ngIf="this.regForm.controls['name'].invalid && this.regForm.controls['name'].touched" id="nameWarning"  class="inputWarnings">
                 <i class="fa-stop fas"></i> Enter a proper name
             </li>
@@ -24,8 +54,9 @@
             <li *ngIf="this.regForm.controls['confPass'].touched && !matchedPassword" id="confPasswordWarning" class="inputWarnings">
                 <i class="fa-stop fas"></i> Passwords must match
             </li>
-        </ul>
+        </ul> -->
 
-        <button class="bg-slate-700 font-bold p-3 w-full mt-5 hover:bg-slate-300 hover:text-black" type="submit" [disabled]="regForm['invalid']">Submit</button>
+        <button mat-flat-button [color]="regForm['invalid']? 'warn' : 'primary'"  class="font-bold p-3 w-full mt-5" type="submit" >Submit</button> <!-- [disabled]="regForm['invalid']" -->
+    
     </form>
 </div>

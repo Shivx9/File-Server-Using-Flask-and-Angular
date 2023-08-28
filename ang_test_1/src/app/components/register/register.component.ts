@@ -22,7 +22,7 @@ export class RegisterComponent implements AfterViewInit {
   confpassWarn:any;
   validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(.[a-zA-Z0-9-]+)+$/;
   matchedPassword=true
-  
+  hidePass = true
   
 
   constructor(private formBuilder:FormBuilder, private api:MyApiEndpointService, private title:Title)
@@ -45,12 +45,15 @@ export class RegisterComponent implements AfterViewInit {
     this.regForm.valueChanges.subscribe(
       (changes)=>{
 
-
-        if(this.regForm.value.confPass != this.regForm.value.password) {
+        console.log("matching ", this.regForm.value.confPass, " & ",this.regForm.value.password, " as ", this.regForm.value.confPass == this.regForm.value.password)
+        if(this.regForm.value.confPass == this.regForm.value.password) {
           this.matchedPassword = true
         }
+        else{
+          this.matchedPassword = false
+        }
         
-        console.log("Form changes -> ", this.regForm.controls['name'].valid)
+        console.log("Matched password -> ", this.matchedPassword)
         // console.log('Status -> ', this.regForm.controls['name'].touched)
       }
     )
