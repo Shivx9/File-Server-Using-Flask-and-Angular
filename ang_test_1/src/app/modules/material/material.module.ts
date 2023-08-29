@@ -6,6 +6,10 @@ import {MatExpansionModule} from '@angular/material/expansion'
 import {MatIconModule} from '@angular/material/icon'
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import {MatInputModule} from '@angular/material/input'
+import {MatGridListModule} from '@angular/material/grid-list'
+import {} from '@angular/material'
+import {} from '@angular/material'
+import {} from '@angular/material'
 import {} from '@angular/material'
 import {} from '@angular/material'
 
@@ -18,7 +22,8 @@ const material = [
   MatExpansionModule,
   MatIconModule,
   MatProgressSpinnerModule,
-  MatInputModule
+  MatInputModule,
+  MatGridListModule
 ]
 
 

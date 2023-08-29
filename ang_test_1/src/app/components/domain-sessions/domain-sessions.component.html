@@ -1,12 +1,20 @@
 <app-navbar></app-navbar>
 
-<div class="mx-10">
+<div class="mx-10 h-full w-full">
     <div *ngIf="!errorWhileLoading">
         <p class="py-10 formTitle">Your Allocated Domain Sessions</p>
-        <ng-container *ngFor="let i of domains;">
+        
+        <mat-grid-list [cols]="itemCols" rowHeight="1:1" gutterSize="1rem">
+            <mat-grid-tile *ngFor="let i of domains;" role="directory">
+                <app-item [item]='i' [root]="i.id"></app-item>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <!-- <ng-container *ngFor="let i of domains;">
             <app-item [item]='i' [root]="i.id"></app-item>
-        </ng-container>
+        </ng-container> -->
     </div>
+
+
 
     <div *ngIf="hasLoaded && (isEmpty || errorWhileLoading)" class="bg-slate-700 outline-2 outline-dashed mt-10 rounded-3xl">
         <p *ngIf="errorWhileLoading" class="p-10">

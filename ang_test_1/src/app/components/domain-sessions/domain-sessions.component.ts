@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { GlobalWebName } from 'src/app/Globals';
 import { Item } from 'src/app/interfaces/interfaces';
@@ -16,10 +16,21 @@ export class DomainSessionsComponent implements OnInit{
   isEmpty = false
   hasLoaded = false
   errorWhileLoading= false
+  itemCols = 0
+  itemSizeThresh = 250
 
   constructor(private apiService:MyApiEndpointService, private title:Title){
     title.setTitle('Domains | ' + GlobalWebName)
+    this.itemCols =  Math.round(window.innerWidth/this.itemSizeThresh);
   }
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+  this.itemCols =  Math.round(event.target.innerWidth/this.itemSizeThresh);
+  console.log(this.itemCols)
+}
+
 
 
   ngOnInit(): void {

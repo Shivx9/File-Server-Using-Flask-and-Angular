@@ -68,3 +68,4 @@ class testTable(db.Model):
     def testFn(self):
         print("->\n", [p for p in dir(self) if (p[0]!='_' and not p in commonBaseClassProperties)], "\n" , not self.__getattribute__('textField'),"\n")
         self.__setattr__('textField', 'some text here')
+

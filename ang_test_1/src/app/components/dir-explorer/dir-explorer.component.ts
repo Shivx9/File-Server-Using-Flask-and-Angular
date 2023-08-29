@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild, numberAttribute } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild, numberAttribute } from '@angular/core';
 import { DomSanitizer, SafeHtml, Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -33,6 +33,8 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
   displayContentURL!:string
   rawContent!:SafeHtml
   previewMode: 'none' | 'file' | 'img'= 'none'
+  itemCols = 0
+  itemSizeThresh = 250
 
   multi_targets : {item:Item, root:number}[] = []
 
@@ -44,10 +46,20 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
     private paramService:ActivatedRoute, 
     private change:ChangeDetectorRef,
     private sanitizer:DomSanitizer){
+
     title.setTitle('Directories | ' + GlobalWebName )
+
+    this.itemCols = Math.round(window.innerWidth/this.itemSizeThresh)
 
 
   }
+
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+  this.itemCols =  Math.round(event.target.innerWidth/this.itemSizeThresh);
+}
 
 
 

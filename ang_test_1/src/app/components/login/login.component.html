@@ -19,7 +19,7 @@
             <mat-error *ngIf="this.loginForm.controls['password'].invalid">Enter a valid password</mat-error>
         </mat-form-field>
 
-        <mat-error *ngIf="forbidden">Maximum invalid login attempts exceeded.</mat-error>
+        <mat-error *ngIf="forbidden">Maximum invalid login attempts exceeded.<br><span class="underline underline-offset-4"><a routerLink="/resetpass">Reset password</a></span> to continue</mat-error>
         <mat-error *ngIf="invalidCreds">Credentials don't match</mat-error>
         
         <!-- <label class="p-3 flex">Email</label> -->
@@ -40,8 +40,6 @@
             <li *ngIf="invalidCreds" id="credWarning" class="inputWarnings">
                 <i class="fa-stop fas"></i>  Credentials don't Match
             </li>
-            
-            
         </ul>-->
         
         

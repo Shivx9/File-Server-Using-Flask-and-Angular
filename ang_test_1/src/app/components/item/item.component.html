@@ -1,16 +1,16 @@
 
-<div class="float-left  m-2 p-3 outline-dashed outline-3 outline-slate-700  select-none w-48 h-48" (mouseenter)="isHoverTarget =true" (mouseleave)="isHoverTarget = false"> <!--  (contextmenu)="ctxMenuRequest($event, item, root)"> -->
+<div class="float-left  m-2 p-3 outline-dashed outline-3 outline-slate-700  select-none w-full h-full" (mouseenter)="isHoverTarget =true" (mouseleave)="isHoverTarget = false"> <!--  (contextmenu)="ctxMenuRequest($event, item, root)"> -->
     
     <input [(ngModel)]="selected" (ngModelChange)="selectValChanged($event)" type="checkbox" class="absolute h-8 w-8 cursor-pointer"  [hidden]="(!selected && !isHoverTarget) || item.type=='domain'">
 
-    <div *ngIf="item.type!='file'" [routerLink]='["/explore/"]' [queryParams]="{domain:root, dir:get_url_dir()}" class="bg-slate-800 overflow-hidden h-full align-middle hover:bg-slate-700 rounded-3xl flex flex-col">
+    <div *ngIf="item.type!='file'" [routerLink]='["/explore/"]' [queryParams]="{domain:root, dir:get_url_dir()}" class="bg-slate-800 overflow-hidden w-48 h-48 m-auto align-middle hover:bg-slate-700 rounded-3xl flex flex-col">
         <i *ngIf="item.type=='folder'" class="far fa-folder w-full pt-3 flex-1" style="height: 2rem;"></i>
         <i *ngIf="item.type=='domain'" class="fas fa-code w-full pt-3 flex-1" style="height: 2rem;"></i>
         <!-- <img [src]="getImg()" alt="icon" style="height: 7rem;"> -->
         <p class="text-center p-3 flex-1">{{getName()}}</p>
     </div>
 
-    <div *ngIf="item.type=='file'" (click)="get_file()"  class="bg-slate-800 overflow-hidden h-full align-middle hover:bg-slate-700 rounded-3xl flex flex-col">
+    <div *ngIf="item.type=='file'" (click)="get_file()"  class="bg-slate-800 overflow-hidden w-48 h-48 m-auto align-middle hover:bg-slate-700 rounded-3xl flex flex-col">
         <i class="far fa-file w-full pt-3 flex-1" style="height: 2rem;"></i>
         <!-- <img [src]="getImg()" alt="icon" style="height: 7rem;"> -->
         <p class="text-center p-3 flex-1">{{getName()}}</p>
