@@ -1,5 +1,4 @@
-<div *ngIf="opened" class="bg-slate-100 fixed bottom-10 right-10 text-black" style="min-width: 20rem;">
-
+<div *ngIf="opened" class="fixed w-1/4 h-1/2" style="min-width: 20rem; min-height: 30rem; color: black; background-color: aliceblue; min-width: 20rem; bottom: 0; right: 0;" [@toggle]="">    
     <div class="p-5 bg-slate-300 justify-center flex">
         
         <div class="flex-1 text-xl text-slate-700">Details</div>
@@ -9,17 +8,7 @@
                 <i class="fa-close fas h-7 w-7"></i>
             </button>
         </div>
- 
 
-        <!-- <mat-card>
-                <mat-card-content>
-                    <span>Details</span>
-            
-                    <button mat-icon-button color="accent" matSuffix>
-                        <mat-icon>close</mat-icon>
-                    </button>
-                </mat-card-content>
-        </mat-card> -->
 
     </div>
 
@@ -33,13 +22,19 @@
         </mat-grid-list>
     </div>
 
-    <div *ngIf="loaded" class="p-10">
+    <div *ngIf="loaded" class="px-5 py-4">
         <div class="items-center">
             <i [ngClass]="details.type=='file'? 'fa-file':'fa-folder'"  class="text-slate-800 far h-20 w-full" ></i>
         </div>
 
-        <p class="text-center">{{details.name}}</p>
-        <p class="text-base text-center text-slate-500">{{details.type}}</p>
+        <p class="text-center">
+            {{details.name}}
+            <br>
+            <span class="text-base text-center text-slate-500">
+                {{details.type}}
+            </span>
+        </p>
+        
 
         <br>
         <table class="w-full">

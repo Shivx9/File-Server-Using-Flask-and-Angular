@@ -7,7 +7,7 @@ import { MyApiEndpointService } from 'src/app/services/my-api-endpoint.service';
 @Component({
   selector: 'app-context-menu',
   templateUrl: './context-menu.component.html',
-  styleUrls: ['./context-menu.component.css']
+  styleUrls: ['./context-menu.component.css'],
 })
 export class ContextMenuComponent implements AfterViewInit{
 
@@ -41,6 +41,15 @@ export class ContextMenuComponent implements AfterViewInit{
   }
 
   activeMenuItems!:contextMenuItem[]
+  icons :any= {
+    'copy':'fa-copy',
+    'cut':'fa-cut',
+    'paste':'fa-paste',
+    'delete':'fa-trash',
+    'rename':'fa-edit',
+    'download':'fa-download',
+    'details':'fa-search'
+  }
 
   isActivated=false
   menuOpen = false

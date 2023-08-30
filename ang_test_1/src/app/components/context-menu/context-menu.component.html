@@ -1,5 +1,8 @@
 <div #mainDiv *ngIf="isActivated" id="context-menu">
-    <p class="p-3 hover:bg-slate-300" *ngFor="let i of activeMenuItems" (click)="optionClicked(i.name)">{{i.name}}</p>
+    <p class="p-3 hover:bg-slate-300" *ngFor="let i of activeMenuItems" (click)="optionClicked(i.name)">
+        <i class="{{icons[i.name]}} fas pr-5"></i>
+        {{i.name}}
+    </p>
 </div>
 
 <div *ngIf="menuOpen" class="fixed top-0 left-0 z-10 pos w-full h-full bg-black bg-opacity-60 flex" (click)="clickOff($event)">
