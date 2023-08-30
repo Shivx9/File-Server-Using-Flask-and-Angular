@@ -18,7 +18,6 @@ export class ItemComponent{
   @Input() root!:any
   @Output() multi_select = new EventEmitter<boolean>
 
-  
   // @Output() ctxMenuRequest = new EventEmitter<{event:MouseEvent, item:Item, root:any}>  
   
   isHoverTarget = false

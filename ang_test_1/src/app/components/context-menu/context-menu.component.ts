@@ -15,6 +15,8 @@ export class ContextMenuComponent implements AfterViewInit{
   @Output() reloadView = new EventEmitter
   @Output() newCancellableTask = new EventEmitter<{"name":string,"id":string}>
   @Output() completedCancellableTask = new EventEmitter<string>
+  @Output() fileDetails = new EventEmitter<any>
+  @Output() fileDetailsRequested = new EventEmitter
 
   // @ViewChild('mainDiv', {static:false, read:ElementRef}) mainDiv!:ElementRef
 
@@ -218,7 +220,15 @@ export class ContextMenuComponent implements AfterViewInit{
 
 
         break
+      
+      case 'details':
+        this.fileDetailsRequested.emit()
+        this.api.getDetails(this.params['domain'], this.params['dir'] , this.targetInfo[0].item.name.split(safe_separator).pop())
+        .subscribe(res=>{
+          this.fileDetails.emit(res)          
 
+        })
+        break
 
     }
     this.closeContext()

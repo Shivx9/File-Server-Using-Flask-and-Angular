@@ -185,6 +185,7 @@ export class MyApiEndpointService {
 		let f = new FormData
 		f.append('to_retrieve', JSON.stringify(filePaths))
 		f.append('task_id', task_id)
+		f.append('type', 'retrieve')
 
 		return this.http.patch(
 			
@@ -255,7 +256,6 @@ export class MyApiEndpointService {
 			}))
 
 	}
-	
 
 
 
@@ -292,6 +292,19 @@ export class MyApiEndpointService {
 	}
 
 
+	getDetails(domainID:number, path:string, fileName:string):Observable<any>{
+		let f = new FormData
+		f.append('type', 'details')
+		f.append('toCheck', fileName)
+
+		return this.http.patch(
+			Globals.base_api_url + '/explore/' + domainID.toString() + '?dir=' + path,
+			f
+		).pipe(
+			catchError((err)=>{
+				throw new Error("error while retrieving file\n" + err)
+			}))
+	}
 
 
 

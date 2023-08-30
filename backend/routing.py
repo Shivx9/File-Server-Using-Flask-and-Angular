@@ -255,6 +255,7 @@ def explore(baseDirectoryRef):
 
         match request.method:
             case "GET":    # Viewing query 
+ 
                 # Continue considering requested path leads to a normal directory
                 root = final
                 all:list= os.listdir(root)
@@ -269,10 +270,12 @@ def explore(baseDirectoryRef):
                 return jsonify(root = extendedDirectory, folders = folders, files = files)
             
 
+            
+
             case "POST":       # Folder-create / File-upload query
                 
-                if request.form['type']!='':
-                    if request.form['type']== 'create':        # Create folder
+                match request.form['type']:
+                    case 'create':        # Create folder
                         fileName = request.form['target']
                         if not checkValidName(fileName):
                             return jsonify(success=False)
@@ -284,7 +287,7 @@ def explore(baseDirectoryRef):
 
                         return jsonify(success=True)
 
-                    elif request.form['type']== 'upload':          # Upload content
+                    case 'upload':          # Upload content
                         
                         files = request.files.getlist('toUpload')
                         for i in files:
@@ -296,7 +299,7 @@ def explore(baseDirectoryRef):
 
                         return jsonify(success = True)
 
-                    else:
+                    case _:
                         return "Invalid request", 400
 
 
@@ -383,95 +386,118 @@ def explore(baseDirectoryRef):
 
 
             case "PATCH":       # File / Folder retrieval query  
-                data = json.loads(request.form['to_retrieve']) #json.loads
-                finalFile = ''
-                l = len(data)
-                if l==0:   # No files sent
+                match request.form['type']:
+                    case 'details':
+                        final = os.path.join(final, request.form['toCheck'])
+                        type = "folder"
+                        if os.path.isfile(final):
+                            type = "file"
+                        
+                        total = os.path.getsize(final)
 
-                    return "False request", 400
-                
-                else:   # Prep temp directory details for sending folder or zipping multiple files 
-                    for i in range(l):
-                        data[i] = fr"{os.path.join(base, data[i].replace(safe_directory_separator, os.sep))}"
+                        if type!='file':
+                            total = get_dir_size(final)
+                            
 
-                    if not  os.path.exists(tempFolder):
-                        os.mkdir(tempFolder)
+                        return jsonify(
+                            name = request.form['toCheck'], 
+                            type = type, 
+                            size = total, #os.path.getsize(final), 
+                            created = datetime.datetime.fromtimestamp(os.path.getctime(final)), 
+                            modified = datetime.datetime.fromtimestamp(os.path.getmtime(final)),
+                            accessed = datetime.datetime.fromtimestamp(os.path.getatime(final))
+                            )
+                    
+                    case 'retrieve':
+                        data = json.loads(request.form['to_retrieve']) #json.loads
+                        finalFile = ''
+                        l = len(data)
+                        if l==0:   # No files sent
 
-                    finalFile  = os.path.join( tempFolder , f"files_{secrets.token_hex(10)}.zip")
+                            return "False request", 400
+                        
+                        else:   # Prep temp directory details for sending folder or zipping multiple files 
+                            for i in range(l):
+                                data[i] = fr"{os.path.join(base, data[i].replace(safe_directory_separator, os.sep))}"
+
+                            if not  os.path.exists(tempFolder):
+                                os.mkdir(tempFolder)
+
+                            finalFile  = os.path.join( tempFolder , f"files_{secrets.token_hex(10)}.zip")
 
 
-                # Validation
-                for i in data:
-                    if not (checkValidPath(base, os.path.join(base,i)) or os.path.exists(base, os.path.join(base,i))):
-                        return "Invalid request", 400
-                
-
-                thisTask = request.form['task_id']
-                addActiveTask(thisTask)
-                thisIndex = checkValidTask(thisTask)
-
-                global currAbortedTasks
-                if l==1 and os.path.isfile(data[0]):       # Single file
-
-                    finalFile = data[0] #os.path.join(final, data[0])
-                
-                else:         # Folder or Multiple files - zip & send
-
-
-                    if currAbortedTasks>0:                                                      # Possibility that some task might need to be aborted
-                        if thisIndex>activeTaskLen or currActiveTasks[thisIndex]!=thisTask:     #Check if cached index and value at that index is still valid
-                            thisIndex = checkValidTask(thisTask)                                # Refresh outdated index
-                            if thisIndex==-1:                                                   # Check for final time in case new index is also invalid
-                                currAbortedTasks-=1
-                                return "Error occured", 500                                     # Abort task
+                        # Validation
+                        for i in data:
+                            if not (checkValidPath(base, os.path.join(base,i)) or os.path.exists(base, os.path.join(base,i))):
+                                return "Invalid request", 400
                         
 
-                    with zipfile.ZipFile(finalFile,'w', zipfile.ZIP_DEFLATED) as z:
-                        for i in data:
+                        thisTask = request.form['task_id']
+                        addActiveTask(thisTask)
+                        thisIndex = checkValidTask(thisTask)
 
-                            if os.path.isfile(i):
-                                z.write(i, i.split(os.sep)[-1])
-                            
-                            else:
+                        global currAbortedTasks
+                        if l==1 and os.path.isfile(data[0]):       # Single file
 
-                                for root, dirs, files in os.walk(i):
+                            finalFile = data[0] #os.path.join(final, data[0])
+                        
+                        else:         # Folder or Multiple files - zip & send
+
+
+                            if currAbortedTasks>0:                                                      # Possibility that some task might need to be aborted
+                                if thisIndex>activeTaskLen or currActiveTasks[thisIndex]!=thisTask:     #Check if cached index and value at that index is still valid
+                                    thisIndex = checkValidTask(thisTask)                                # Refresh outdated index
+                                    if thisIndex==-1:                                                   # Check for final time in case new index is also invalid
+                                        currAbortedTasks-=1
+                                        return "Error occured", 500                                     # Abort task
+                                
+
+                            with zipfile.ZipFile(finalFile,'w', zipfile.ZIP_DEFLATED) as z:
+                                for i in data:
+
+                                    if os.path.isfile(i):
+                                        z.write(i, i.split(os.sep)[-1])
                                     
+                                    else:
 
+                                        for root, dirs, files in os.walk(i):
                                             
 
-                                    for file in files:
+                                                    
 
-                                        if currAbortedTasks>0:                                                      # Possibility that some task might need to be aborted
-                                            if thisIndex>activeTaskLen or currActiveTasks[thisIndex]!=thisTask:     #Check if cached index and value at that index is still valid
-                                                thisIndex = checkValidTask(thisTask)                                # Refresh outdated index
-                                                if thisIndex==-1:                                                   # Check for final time in case new index is also invalid
-                                                    currAbortedTasks-=1
-                                                    return "Error occured", 500                                     # Abort task
-                                                
-                                                
-                                        z.write(
-                                            os.path.join(root, file),
-                                            os.path.relpath(
-                                                        os.path.join(root, file),
-                                                        os.path.join(i, '..')
-                                                    )
-                                                )
-                       
-                       
-                if currAbortedTasks>0:                                                          # Possibility that some task might need to be aborted
-                        if thisIndex>activeTaskLen or currActiveTasks[thisIndex]!=thisTask:     #Check if cached index and value at that index is still valid
-                            thisIndex = checkValidTask(thisTask)                                # Refresh outdated index
-                            if thisIndex==-1:                                                   # Check for final time in case new index is also invalid
-                                currAbortedTasks-=1                                             
-                                return "Error occured", 500                                     # Abort task
+                                            for file in files:
 
-    
-                
-                a= send_file(finalFile, as_attachment= False, download_name=finalFile.split(os.sep)[-1])
-                
-                completeActiveTask(thisTask)
+                                                if currAbortedTasks>0:                                                      # Possibility that some task might need to be aborted
+                                                    if thisIndex>activeTaskLen or currActiveTasks[thisIndex]!=thisTask:     #Check if cached index and value at that index is still valid
+                                                        thisIndex = checkValidTask(thisTask)                                # Refresh outdated index
+                                                        if thisIndex==-1:                                                   # Check for final time in case new index is also invalid
+                                                            currAbortedTasks-=1
+                                                            return "Error occured", 500                                     # Abort task
+                                                        
+                                                        
+                                                z.write(
+                                                    os.path.join(root, file),
+                                                    os.path.relpath(
+                                                                os.path.join(root, file),
+                                                                os.path.join(i, '..')
+                                                            )
+                                                        )
+                            
+                            
+                        if currAbortedTasks>0:                                                          # Possibility that some task might need to be aborted
+                                if thisIndex>activeTaskLen or currActiveTasks[thisIndex]!=thisTask:     #Check if cached index and value at that index is still valid
+                                    thisIndex = checkValidTask(thisTask)                                # Refresh outdated index
+                                    if thisIndex==-1:                                                   # Check for final time in case new index is also invalid
+                                        currAbortedTasks-=1                                             
+                                        return "Error occured", 500                                     # Abort task
 
-                return a
+            
+                        
+                        a= send_file(finalFile, as_attachment= False, download_name=finalFile.split(os.sep)[-1])
+                        
+                        completeActiveTask(thisTask)
+
+                        return a
                     
                     
 
@@ -506,8 +532,6 @@ def explore(baseDirectoryRef):
 
     except Exception as e:
         return str(e), 500
-
-    
 
 
 

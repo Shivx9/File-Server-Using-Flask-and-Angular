@@ -1,7 +1,39 @@
 <app-navbar></app-navbar>
-<app-context-menu #contextMenuContent [params]="params" (reloadView)="make_api_call()" (newCancellableTask)="activeTasks.push($event)" (completedCancellableTask)="completedReq($event)"></app-context-menu>
+<app-context-menu #contextMenuContent [params]="params" 
+    (reloadView)="make_api_call()" 
+    (newCancellableTask)="activeTasks.push($event)" 
+    (completedCancellableTask)="completedReq($event)"
+    (fileDetailsRequested)="deets.open()"
+    (fileDetails)="deets.loadData($event)"
+    >
+</app-context-menu>
 
-<div class="mt-5 mx-5">
+
+  
+<!-- <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav bg-transparent absolute" mode="side" opened="true">
+      <p>Auto-resizing sidenav</p>
+      
+    </mat-drawer>
+  
+</mat-drawer-container> -->
+  
+<!-- <div (click)="snav.opened = !snav.opened" style="position:absolute; top:0; bottom:0; left:0; right: 0; display: flex; flex-direction: column; width: 100%;">
+    <mat-sidenav-container style="flex: 1;">
+        <mat-sidenav #snav mode="over" opened="true">
+            <mat-sidenav-content>
+                <mat-icon>folder</mat-icon>
+                <a mat-list-item>Home</a>
+                <a mat-list-item>Products</a>
+                <a mat-list-item>Orders</a>
+            </mat-sidenav-content>
+        </mat-sidenav>
+        
+    </mat-sidenav-container>
+</div> -->
+
+
+<div class="p-5">
     <div class="py-5 flex" *ngIf="!errorWhileLoading">
         <app-breadcrumb [currDomain]="root"></app-breadcrumb>
         <app-upload-btn [params]="params" (reloadView)="make_api_call()"></app-upload-btn>
@@ -59,3 +91,5 @@
     </mat-accordion>
 </div>
 
+
+<app-load-details #deets></app-load-details>

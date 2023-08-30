@@ -85,7 +85,8 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
             {name:'paste'},
             {name:'rename'},
             {name:'delete'},
-            {name:'download'}
+            {name:'download'},
+            {name:'details'}
           ]
   
           break
@@ -98,7 +99,8 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
               {name:'paste'},
               {name:'rename'},
               {name:'delete'},
-              {name:'download'}
+              {name:'download'},
+              {name:'details'}  
             ]
     
             break
@@ -172,6 +174,31 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
     this.previewMode='file'
     console.log("processed - ", this.rawContent)
   }
+
+
+  displayFileContent(details:any){
+    let size = details.size
+    let suffix = ''
+    if (size>1000000000){
+      size=(size/1000000000) //.toFixed(2)
+      suffix = 'GB'
+    }
+    else if (size>1000000){
+      size/=1000000
+      suffix = 'MB'
+    }
+    else if (size>1000){
+      size/=1000
+      suffix = 'KB'
+    }
+    else{
+      suffix = 'B'
+    }
+    console.log("Size is ", (size).toFixed(2), suffix)
+  
+  }
+
+
 
   ngOnInit(): void {
     

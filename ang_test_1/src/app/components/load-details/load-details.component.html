@@ -1,0 +1,84 @@
+<div *ngIf="opened" class="bg-slate-100 fixed bottom-10 right-10 text-black" style="min-width: 20rem;">
+
+    <div class="p-5 bg-slate-300 justify-center flex">
+        
+        <div class="flex-1 text-xl text-slate-700">Details</div>
+        
+        <div class=" text-pink-500 flex-shrink-0 hover:text-pink-800">
+            <button (click)="close()">
+                <i class="fa-close fas h-7 w-7"></i>
+            </button>
+        </div>
+ 
+
+        <!-- <mat-card>
+                <mat-card-content>
+                    <span>Details</span>
+            
+                    <button mat-icon-button color="accent" matSuffix>
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </mat-card-content>
+        </mat-card> -->
+
+    </div>
+
+    <div *ngIf="!loaded">
+        <mat-grid-list cols=3 rowHeight="1:1">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile>
+                <mat-spinner></mat-spinner>
+            </mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+        </mat-grid-list>
+    </div>
+
+    <div *ngIf="loaded" class="p-10">
+        <div class="items-center">
+            <i [ngClass]="details.type=='file'? 'fa-file':'fa-folder'"  class="text-slate-800 far h-20 w-full" ></i>
+        </div>
+
+        <p class="text-center">{{details.name}}</p>
+        <p class="text-base text-center text-slate-500">{{details.type}}</p>
+
+        <br>
+        <table class="w-full">
+            <tr>
+                <th align="left">
+                    Size
+                </th>
+                <td align="justify">
+                    {{calcSize(details.size)}}
+                </td>
+            </tr>
+
+            <tr>
+                <th align="left">
+                    Created on
+                </th>
+                <td align="justify">
+                    {{details.created}}
+                </td>
+            </tr>
+
+            <tr>
+                <th align="left">
+                    Last Modified
+                </th>
+                <td align="justify">
+                    {{details.modified}}
+                </td>
+            </tr>
+
+            <tr>
+                <th align="left">
+                    Last Accessed
+                </th>
+                <td align="justify">
+                    {{details.accessed}}
+                </td>
+            </tr>
+            
+        </table>
+    </div>
+</div>

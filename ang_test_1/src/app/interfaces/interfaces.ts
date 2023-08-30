@@ -6,7 +6,7 @@ export interface Item{
 
 
 export interface contextMenuItem{
-    name: 'rename' | 'download' | 'copy' | 'cut' | 'paste' | 'open' | 'delete' 
+    name: 'rename' | 'download' | 'copy' | 'cut' | 'paste' | 'open' | 'delete' | 'details'
 }
 
 export interface selfContextItem{

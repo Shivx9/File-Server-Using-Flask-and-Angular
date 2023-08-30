@@ -12,6 +12,7 @@ import { ContextMenuComponent } from 'src/app/components/context-menu/context-me
 import { UploadBtnComponent } from 'src/app/components/upload-btn/upload-btn.component';
 import { MaterialModule } from '../material/material.module';
 import { TaskProgressCardComponent } from 'src/app/components/task-progress-card/task-progress-card.component';
+import { LoadDetailsComponent } from 'src/app/components/load-details/load-details.component';
 
 
 
@@ -24,7 +25,8 @@ import { TaskProgressCardComponent } from 'src/app/components/task-progress-card
     BreadcrumbComponent,
     ContextMenuComponent,
     UploadBtnComponent,
-    TaskProgressCardComponent
+    TaskProgressCardComponent,
+    LoadDetailsComponent
   ],
   imports: [
     CommonModule,
