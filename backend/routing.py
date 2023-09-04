@@ -403,7 +403,7 @@ def explore(baseDirectoryRef):
                             name = request.form['toCheck'], 
                             type = type, 
                             size = total, #os.path.getsize(final), 
-                            created = datetime.datetime.fromtimestamp(os.path.getctime(final)), 
+                            created  = datetime.datetime.fromtimestamp(os.path.getctime(final)), 
                             modified = datetime.datetime.fromtimestamp(os.path.getmtime(final)),
                             accessed = datetime.datetime.fromtimestamp(os.path.getatime(final))
                             )

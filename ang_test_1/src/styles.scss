@@ -5,7 +5,24 @@
 @import "tailwindcss/utilities";
 
 
+[class*="col-"] {
+    float: left;
+    aspect-ratio: 1/1;
+  }
+  
 
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
 
 /* body{
     --tw-bg-opacity: 1;
@@ -15,7 +32,7 @@
 body{
     margin: 0;
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-weight: 100%;
+    font-size: 50em;
     /* font-size: 1rem;
     
     @media screen {
@@ -84,6 +101,27 @@ table, td, th{
 .fa-code{
     color: rgb(247, 40, 74);
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: "Roboto", "Helvetica Neue", sans-serif; }
+
+
+
+
+
+
+
+@keyframes bounce-out{
+    from, to {transform: scale(1);}
+    50% {transform: scale(1.2);}
+
+}
+
+@keyframes jelly {
+    from, to {transform: scale(1,1);}
+    25% { transform: scale(1.1, 0.5); }
+    50% { transform: scale(0.5, 1.1); }
+    80% { transform: scale(0.95, 1.05); }
+}

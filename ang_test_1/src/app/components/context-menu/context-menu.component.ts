@@ -204,7 +204,11 @@ export class ContextMenuComponent implements AfterViewInit{
         }
         
         let t_id = (Math.random() + 1).toString(36).substring(7)
-        this.newCancellableTask.emit({name: "Preparing Files", id: t_id})
+        this.newCancellableTask.emit(
+          {
+            name: this.targetInfo.length==1? "Preparing 1 file": `Preparing ${this.targetInfo.length} files`,
+            id: t_id
+          })
 
         this.api.downloadMultiFromDirectory(this.params['domain'], this.params['dir'], downPaths, t_id)
         .subscribe((blob)=>{

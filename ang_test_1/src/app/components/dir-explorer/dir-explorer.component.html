@@ -39,7 +39,19 @@
         <app-upload-btn [params]="params" (reloadView)="make_api_call()"></app-upload-btn>
     </div>
 
-    <mat-grid-list [cols]="itemCols" rowHeight="1:1" gutterSize="0.5rem">
+
+    <div *ngFor="let i of directories;">
+        <!-- <ng-container *ngFor="let i of directories;" class="w-full"> -->
+            <app-item 
+            [item]='i' 
+            [root]="params['domain']" 
+            (contextmenu)='rtItemMenu($event, i, params["domain"])'  
+            (multi_select)=" $event ? multi_targets.push({'item':i, 'root': params['domain']})  : multi_targets.splice( multi_targets.indexOf({'item':i, 'root': params['domain']}), 1)">
+            </app-item> 
+        <!-- </ng-container> -->
+    </div>
+
+    <!-- <mat-grid-list [cols]="itemCols" rowHeight="1:1" gutterSize="0.5rem">
         <mat-grid-tile *ngFor="let i of directories;" role="directory">
             <app-item 
             [item]='i' 
@@ -49,7 +61,7 @@
             </app-item>
         </mat-grid-tile>
 
-    </mat-grid-list>
+    </mat-grid-list> -->
 
 <!-- 
     <div class="bg-slate-950" *ngIf="!errorWhileLoading">
@@ -84,7 +96,7 @@
                 Progress
             </mat-expansion-panel-header>
             
-            <app-task-progress-card *ngFor="let task of activeTasks" [task]="task" (onTaskCancel)="sendCancelReq($event)"></app-task-progress-card>
+            <app-task-progress-card *ngFor="let task of activeTasks" [task]="task" (onTaskCancel)="sendCancelReq($event)" ></app-task-progress-card>
 
 
         </mat-expansion-panel>

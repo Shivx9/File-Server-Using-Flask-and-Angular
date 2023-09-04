@@ -1,19 +1,17 @@
-
-<div class="float-left  m-2 p-3 outline-dashed outline-3 outline-slate-700  select-none w-full h-full" (mouseenter)="isHoverTarget =true" (mouseleave)="isHoverTarget = false"> <!--  (contextmenu)="ctxMenuRequest($event, item, root)"> -->
+<div class="float-left p-3 relative itemTile select-none" [ngStyle]="{ opacity: (isHoverTarget || selected)? 1 : 0.8, }" (mouseleave)="isHoverTarget = false"  [@itemTiles]> <!--  (contextmenu)="ctxMenuRequest($event, item, root)"> -->
     
-    <input [(ngModel)]="selected" (ngModelChange)="selectValChanged($event)" type="checkbox" class="absolute h-8 w-8 cursor-pointer"  [hidden]="(!selected && !isHoverTarget) || item.type=='domain'">
+    <input [(ngModel)]="selected" (ngModelChange)="selectValChanged($event)" type="checkbox" class="absolute h-10 w-10 cursor-pointer select-box" style="z-index: 2; top:-1rem; left: -1rem;"  [hidden]="(!selected && !isHoverTarget) || item.type=='domain'">
 
-    <div *ngIf="item.type!='file'" [routerLink]='["/explore/"]' [queryParams]="{domain:root, dir:get_url_dir()}" class="bg-slate-800 overflow-hidden w-48 h-48 m-auto align-middle hover:bg-slate-700 rounded-3xl flex flex-col">
-        <i *ngIf="item.type=='folder'" class="far fa-folder w-full pt-3 flex-1" style="height: 2rem; color: rgb(255, 249, 164);"></i>
-        <i *ngIf="item.type=='domain'" class="fas fa-code w-full pt-3 flex-1" style="height: 2rem;"></i>
-        <!-- <img [src]="getImg()" alt="icon" style="height: 7rem;"> -->
-        <p class="text-center p-3 flex-1">{{getName()}}</p>
-    </div>
+    <button (mouseenter)="isHoverTarget =true"  *ngIf="item.type!='file'" [routerLink]='["/explore/"]'  class="bg-slate-800 overflow-hidden hover:bg-slate-700 w-full h-full m-auto align-middle  rounded-3xl flex flex-col itemTileMain" [queryParams]="{domain:root, dir:get_url_dir()}" >
+        
+        <i *ngIf="item.type=='folder'" class="far fa-folder flex-1 p-3 h-5" style="color: rgb(255, 249, 164);"></i>
+        <i *ngIf="item.type=='domain'" class="fas fa-code  flex-1 p-3 h-5"></i>
+        <p class="text-center p-3 flex-1 break-normal">{{getName()}}</p>
+    </button>
 
-    <div *ngIf="item.type=='file'" (click)="get_file()"  class="bg-slate-800 overflow-hidden w-48 h-48 m-auto align-middle hover:bg-slate-700 rounded-3xl flex flex-col">
-        <i class="far fa-file w-full pt-3 flex-1" style="height: 2rem;"></i>
-        <!-- <img [src]="getImg()" alt="icon" style="height: 7rem;"> -->
+    <button (mouseenter)="isHoverTarget =true"  *ngIf="item.type=='file'" (click)="get_file()"             class="bg-slate-800 overflow-hidden w-full h-full m-auto align-middle hover:bg-slate-700 rounded-3xl flex flex-col itemTileMain">
+        <i class="far fa-file p-3 flex-1 h-5"></i>
         <p class="text-center p-3 flex-1">{{getName()}}</p>
-    </div>
+    </button>
 
 </div>

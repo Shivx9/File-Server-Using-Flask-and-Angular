@@ -1,7 +1,10 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
+// To learn more about this file see: https://angular.io/config/tsconfig. 
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "typeRoots": [
+      "./node_modules/@angular/material",
+    ],
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -23,9 +26,6 @@
       "ES2022",
       "dom"
     ],
-    "typeRoots": [
-      "node_modules/@angular/material"
-    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

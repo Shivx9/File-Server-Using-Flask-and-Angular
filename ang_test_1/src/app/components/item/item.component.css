@@ -1,0 +1,50 @@
+.itemTile{
+    aspect-ratio: 1/1;
+}
+
+@media (min-width:360px) {
+    .itemTile{
+        width: 20%;
+    }
+    
+}
+
+@media (min-width:720px) {
+    .itemTile{
+        width: 14.28%;
+    }
+}
+
+@media (min-width:1280px) {
+    .itemTile{
+        width: 10%;
+    }
+}
+
+
+
+.itemTileMain{
+    outline-style:solid;    
+    pointer-events: visibleStroke;
+    transition: all 0.2s ease-out;
+}
+
+.itemTileMain:hover{
+    transform: scale(1.2);
+}
+
+
+.select-box:not(:checked){
+    animation: jelly 0.3s forwards;
+}
+
+.select-box:checked{
+    animation: bounce-out 0.1s forwards;
+}
+
+
+
+
+
+
+

@@ -11,3 +11,35 @@
     background-color: rgb(201, 235, 255);
     color: black;
 } */
+.uploadSuppliMenu{
+    padding: 10%;
+}
+
+@media (min-width:360px) {
+    .uploadSuppliMenu{
+        margin-left:10%;
+        margin-right: 10%;
+        margin-top: 20%;
+        margin-bottom: 20%;
+    }
+    
+}
+
+
+@media (min-width:720px){
+    .uploadSuppliMenu{
+        margin-left:30%;
+        margin-right: 30%;
+        margin-top: 40%;
+        margin-bottom: 40%;
+    }
+}
+
+@media (min-width:1024px){
+    .uploadSuppliMenu{
+        margin-left:30%;
+        margin-right: 30%;
+        margin-top: 20%;
+        margin-bottom: 20%;
+    }
+}

@@ -45,7 +45,6 @@ export class LoginComponent implements AfterViewInit{
         'email' :this.loginForm.value.email,
         'password': this.loginForm.value.password
       }
-      console.log('from componenet - \n', data,'\n\n')
       this.api.sendLogin(data)
       .subscribe((result)=>{
 

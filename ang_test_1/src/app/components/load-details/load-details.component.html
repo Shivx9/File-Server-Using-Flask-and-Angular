@@ -1,4 +1,4 @@
-<div *ngIf="opened" class="fixed w-1/4 h-1/2" style="min-width: 20rem; min-height: 30rem; color: black; background-color: aliceblue; min-width: 20rem; bottom: 0; right: 0;" [@toggle]="">    
+<div *ngIf="opened" class="fixed min-h-min min-w-min" style=" color: black; background-color: aliceblue; min-width: 20rem; bottom: 0; right: 0;" [@toggle]>    
     <div class="p-5 bg-slate-300 justify-center flex">
         
         <div class="flex-1 text-xl text-slate-700">Details</div>
@@ -10,7 +10,7 @@
         </div>
 
 
-    </div>
+    </div>  
 
     <div *ngIf="!loaded">
         <mat-grid-list cols=3 rowHeight="1:1">

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output} from '@angular/core';
 import { Item } from 'src/app/interfaces/interfaces';
 import { safe_separator } from 'src/app/Globals';
 import { MyApiEndpointService } from 'src/app/services/my-api-endpoint.service';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 
 
@@ -9,7 +10,25 @@ import { MyApiEndpointService } from 'src/app/services/my-api-endpoint.service';
 @Component({  
   selector: 'app-item',
   templateUrl: './item.component.html',
-  styleUrls: ['./item.component.css']
+  styleUrls: ['./item.component.css'],
+  animations:[  
+    trigger(
+      'itemTiles',
+      [
+
+
+
+        transition(':enter', [
+          style({ opacity: 0, transform: 'scale(0.3)'}), 
+          animate('100ms', style({ opacity: 1, transform: 'scale(1)'})),
+        ]),
+
+        // transition(':leave', [
+        //   style({ opacity: 1, transform: 'scale(0.1)'}), 
+        //   animate('500ms', style({ opacity: 0, transform: 'scale(0.3)'})),        ])
+
+          ]
+      )]
 })
 
 export class ItemComponent{
@@ -29,6 +48,7 @@ export class ItemComponent{
 
 
   selectValChanged(val:boolean){
+    this.selected = val
     this.multi_select.emit(val)
   }
 

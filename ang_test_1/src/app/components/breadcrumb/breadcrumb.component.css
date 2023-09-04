@@ -1,5 +1,16 @@
 :host{
     flex: auto;
+}
+
+.crumb-text{
+    transition: all 0.1s ease-in-out;
+}
 
 
+.crumb-text:hover{
+    transform: scale(1.1);
+}
+
+.crumb-text:active{
+    transform: scale(1.2);
 }
