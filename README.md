@@ -53,7 +53,10 @@ This is intended as an open-source web-app for real-time shared access to files 
 ## Backend -
 - Flask-based app : 'routing.py' refers to the main executable flask base
 - Uses flask-sqlalchemy for database communication
-- Ensure all required python libraries used are installed
+- After installing Python & Pip, ensure all required python libraries used are installed by running the following command in the **backend** folder
+```
+pip install -r requirements.txt
+```
 - Create your own **credentials.json** file<br>
   **Eg.**<br>
 ```
@@ -99,12 +102,11 @@ flask db upgrade
 
 ## Frontend
 
-- Initialize a basic angular app setup along with Anuglar Material in an empty directory in the server
-`ng new <app-name-here>`
-- Move all core files provided in the frontend repo directory "ang-test-1" into the newly created Angular directory. Overwrite common files
+- Initialize a direct angular app setup by running the following command in the **ang_test_1** directory, which should automatically set up the required dependencies from **package.json** 
+`npm install`
+- Ensure TailwindCSS is installed and configured properly
 - Open a terminal in this directory & run the frontend angular app (assuming the backend components have gone live)
 `ng serve`
-- Ensure TailwindCSS is installed and configured properly
 
 
 ## DIY
