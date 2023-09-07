@@ -1,17 +1,38 @@
-<div class="float-left p-3 relative itemTile select-none" [ngStyle]="{ opacity: (isHoverTarget || selected)? 1 : 0.8, }" (mouseleave)="isHoverTarget = false"  [@itemTiles]> <!--  (contextmenu)="ctxMenuRequest($event, item, root)"> -->
+<div *ngIf="displayType=='tile'" class="float-left p-3 relative itemTile select-none" [ngStyle]="{ opacity: (isHoverTarget || selected)? 1 : 0.8, }" (mouseleave)="isHoverTarget = false"  [@itemTiles]> <!--  (contextmenu)="ctxMenuRequest($event, item, root)"> -->
     
     <input [(ngModel)]="selected" (ngModelChange)="selectValChanged($event)" type="checkbox" class="absolute h-10 w-10 cursor-pointer select-box" style="z-index: 2; top:-1rem; left: -1rem;"  [hidden]="(!selected && !isHoverTarget) || item.type=='domain'">
 
-    <button (mouseenter)="isHoverTarget =true"  *ngIf="item.type!='file'" [routerLink]='["/explore/"]'  class="bg-slate-800 overflow-hidden hover:bg-slate-700 w-full h-full m-auto align-middle  rounded-3xl flex flex-col itemTileMain" [queryParams]="{domain:root, dir:get_url_dir()}" >
+    <button (mouseenter)="isHoverTarget =true"  *ngIf="item.type!='file'" (click)="reviveLoader.emit()" [routerLink]='["/explore/"]'  class="bg-slate-800 overflow-hidden hover:bg-slate-700 w-full h-full m-auto align-middle  rounded-3xl flex flex-col itemTileMain" [queryParams]="{domain:root, dir:get_url_dir()}" >
         
         <i *ngIf="item.type=='folder'" class="far fa-folder flex-1 p-3 h-5" style="color: rgb(255, 249, 164);"></i>
         <i *ngIf="item.type=='domain'" class="fas fa-code  flex-1 p-3 h-5"></i>
-        <p class="text-center p-3 flex-1 break-normal">{{getName()}}</p>
+        <p class="text-center p-1 flex-1">{{getName()}}</p>
     </button>
 
     <button (mouseenter)="isHoverTarget =true"  *ngIf="item.type=='file'" (click)="get_file()"             class="bg-slate-800 overflow-hidden w-full h-full m-auto align-middle hover:bg-slate-700 rounded-3xl flex flex-col itemTileMain">
         <i class="far fa-file p-3 flex-1 h-5"></i>
-        <p class="text-center p-3 flex-1">{{getName()}}</p>
+        <p class="text-center p-1 flex-1">{{getName()}}</p>
     </button>
+
+</div>
+
+<div *ngIf="displayType=='list'" class="float-left p-3 h-24 relative itemList select-none" [ngStyle]="{ opacity: (isHoverTarget || selected)? 1 : 0.8, }" (mouseleave)="isHoverTarget = false"  [@itemTiles]>    
+
+    <button (mouseenter)="isHoverTarget =true"  *ngIf="item.type!='file'" (click)="reviveLoader.emit()" [routerLink]='["/explore/"]'  class="bg-slate-800 overflow-hidden hover:bg-slate-700 w-full h-full m-auto align-middle  rounded-3xl flex itemListMain" [queryParams]="{domain:root, dir:get_url_dir()}" >
+        <i *ngIf="item.type=='folder'" class="far fa-folder p-3 h-10 m-auto" style="color: rgb(255, 249, 164);"></i>
+        <i *ngIf="item.type=='domain'" class="fas fa-code p-3 h-10 m-auto"></i>
+        <!-- <div class="flex flex-col">
+        </div> -->
+        <p class="text-left text-clip m-auto flex-1 p-1">{{getName()}}</p>
+        <input [(ngModel)]="selected" (ngModelChange)="selectValChanged($event)" type="checkbox" class="h-10 w-10 m-3 cursor-pointer select-box" style="z-index: 2; right: 0;"  [hidden]="(!selected && !isHoverTarget) || item.type=='domain'"> 
+
+    </button>
+
+    <button (mouseenter)="isHoverTarget =true"  *ngIf="item.type=='file'" (click)="get_file()"             class="bg-slate-800 overflow-hidden hover:bg-slate-700 w-full h-full m-auto align-middle  rounded-3xl flex itemListMain">
+        <i class="far fa-file p-3 flex-1 h-5"></i>
+        <p class="text-left text-clip p-1 flex-1 m-auto">{{getName()}}</p>
+        <input [(ngModel)]="selected" (ngModelChange)="selectValChanged($event)" type="checkbox" class="h-10 w-10 m-3 cursor-pointer select-box" style="z-index: 2; right: 0;"  [hidden]="(!selected && !isHoverTarget)"> 
+    </button>
+
 
 </div>

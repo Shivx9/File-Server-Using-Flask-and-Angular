@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+
 <app-context-menu #contextMenuContent [params]="params" 
     (reloadView)="make_api_call()" 
     (newCancellableTask)="activeTasks.push($event)" 
@@ -8,6 +9,9 @@
     >
 </app-context-menu>
 
+<div *ngIf="!hasLoaded" class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-20 z-40 flex flex-col">
+    <div class="lds m-auto"></div>
+</div>
 
   
 <!-- <mat-drawer-container class="example-container" autosize>
@@ -33,6 +37,8 @@
 </div> -->
 
 
+
+
 <div class="p-5">
     <div class="py-5 flex" *ngIf="!errorWhileLoading">
         <app-breadcrumb [currDomain]="root"></app-breadcrumb>
@@ -46,8 +52,10 @@
             [item]='i' 
             [root]="params['domain']" 
             (contextmenu)='rtItemMenu($event, i, params["domain"])'  
-            (multi_select)=" $event ? multi_targets.push({'item':i, 'root': params['domain']})  : multi_targets.splice( multi_targets.indexOf({'item':i, 'root': params['domain']}), 1)">
-            </app-item> 
+            (multi_select)=" $event ? multi_targets.push({'item':i, 'root': params['domain']})  : multi_targets.splice( multi_targets.indexOf({'item':i, 'root': params['domain']}), 1)"
+            (reviveLoader)="hasLoaded = false"
+            >    
+        </app-item> 
         <!-- </ng-container> -->
     </div>
 

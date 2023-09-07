@@ -1,3 +1,6 @@
+import sys
+sys.dont_write_bytecode = True   # Prevent data logging in PyCache
+
 from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy as sa
 from flask import Flask

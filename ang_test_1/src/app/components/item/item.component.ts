@@ -19,7 +19,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 
 
         transition(':enter', [
-          style({ opacity: 0, transform: 'scale(0.3)'}), 
+          style({ opacity: 0, transform: 'scale(0.1)'}), 
           animate('100ms', style({ opacity: 1, transform: 'scale(1)'})),
         ]),
 
@@ -35,7 +35,9 @@ export class ItemComponent{
 
   @Input() item!:Item
   @Input() root!:any
+  @Input() displayType:"tile" | "list" = "list"
   @Output() multi_select = new EventEmitter<boolean>
+  @Output() reviveLoader = new EventEmitter
 
   // @Output() ctxMenuRequest = new EventEmitter<{event:MouseEvent, item:Item, root:any}>  
   

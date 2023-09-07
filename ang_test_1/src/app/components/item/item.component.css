@@ -1,10 +1,21 @@
 .itemTile{
     aspect-ratio: 1/1;
+    transition: all 0.2s ease-in-out;
+}
+
+.itemTile:hover{
+    filter:drop-shadow(0 0 1.5rem rgb(255, 43, 107));
+    position: relative;
+    z-index: 1;
 }
 
 @media (min-width:360px) {
     .itemTile{
         width: 20%;
+    }
+
+    .itemList{
+        width: 100%;
     }
     
 }
@@ -13,11 +24,18 @@
     .itemTile{
         width: 14.28%;
     }
+    .itemList{
+        width: 50%;
+    }
 }
 
 @media (min-width:1280px) {
     .itemTile{
         width: 10%;
+    }
+
+    .itemList{
+        width: 33.33%;
     }
 }
 
@@ -32,6 +50,8 @@
 .itemTileMain:hover{
     transform: scale(1.2);
 }
+
+
 
 
 .select-box:not(:checked){

@@ -22,13 +22,6 @@ export class AuthInterceptorService implements HttpInterceptor{
 
     return next.handle(authReq)
                       .pipe(tap({
-                        next:(event:any)=>{
-                          if(event.status==401){
-                            console.log("Invalid session detected. Redirecting to login")
-                            this.router.navigate(['/login'])
-                          }
-                        },
-                        
                         error:(error)=>{
                           console.log("Error while detecting valid session : ", error)
                           if(error.status==401){
@@ -36,6 +29,5 @@ export class AuthInterceptorService implements HttpInterceptor{
                           }
                         }
                       }))
-
   }
 }
