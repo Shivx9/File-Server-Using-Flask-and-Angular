@@ -21,16 +21,18 @@
     <button (mouseenter)="isHoverTarget =true"  *ngIf="item.type!='file'" (click)="reviveLoader.emit()" [routerLink]='["/explore/"]'  class="bg-slate-800 overflow-hidden hover:bg-slate-700 w-full h-full m-auto align-middle  rounded-3xl flex itemListMain" [queryParams]="{domain:root, dir:get_url_dir()}" >
         <i *ngIf="item.type=='folder'" class="far fa-folder p-3 h-10 m-auto" style="color: rgb(255, 249, 164);"></i>
         <i *ngIf="item.type=='domain'" class="fas fa-code p-3 h-10 m-auto"></i>
-        <!-- <div class="flex flex-col">
-        </div> -->
-        <p class="text-left text-clip m-auto flex-1 p-1">{{getName()}}</p>
+        <div class="flex items-center w-full">
+            <span class="text-left text-clip my-0 w-full">{{getName()}}</span>
+        </div>
         <input [(ngModel)]="selected" (ngModelChange)="selectValChanged($event)" type="checkbox" class="h-10 w-10 m-3 cursor-pointer select-box" style="z-index: 2; right: 0;"  [hidden]="(!selected && !isHoverTarget) || item.type=='domain'"> 
 
     </button>
 
     <button (mouseenter)="isHoverTarget =true"  *ngIf="item.type=='file'" (click)="get_file()"             class="bg-slate-800 overflow-hidden hover:bg-slate-700 w-full h-full m-auto align-middle  rounded-3xl flex itemListMain">
-        <i class="far fa-file p-3 flex-1 h-5"></i>
-        <p class="text-left text-clip p-1 flex-1 m-auto">{{getName()}}</p>
+        <i class="far fa-file p-3 h-10 m-auto"></i>
+        <div class="flex items-center w-full">
+            <span class="text-left text-clip my-0 w-full">{{getName()}}</span>
+        </div>
         <input [(ngModel)]="selected" (ngModelChange)="selectValChanged($event)" type="checkbox" class="h-10 w-10 m-3 cursor-pointer select-box" style="z-index: 2; right: 0;"  [hidden]="(!selected && !isHoverTarget)"> 
     </button>
 

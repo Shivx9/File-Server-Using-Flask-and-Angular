@@ -13,7 +13,7 @@ import { Component, Input } from '@angular/core';
           'open',
           style(
             {
-              boottom:'0px',
+              bottom:'0px',
               opacity:'0%'
             })),
 
@@ -21,7 +21,7 @@ import { Component, Input } from '@angular/core';
           'close',
           style(
             {
-              boottom:'-5rem',
+              bottom:'-5rem',
               opacity:'0%'
             })),
             

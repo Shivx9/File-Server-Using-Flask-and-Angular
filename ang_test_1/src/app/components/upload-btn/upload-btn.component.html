@@ -1,5 +1,5 @@
-<button class="px-8 py-4 mx-4 bg-slate-800 hover:bg-slate-200 hover:text-slate-800 rounded-full" (click)="open('upload')"><i class="fa-upload fas pr-2"></i>Upload</button>
-<button class="px-8 py-4 bg-slate-800 hover:bg-slate-200 hover:text-slate-800 rounded-full" (click)="open('create')"><i class="fa-plus fas pr-2"></i>New Folder</button>
+<button class="px-4 py-4 mx-4 bg-slate-800 hover:bg-slate-200 hover:text-slate-800 rounded-full" (click)="open('upload')"><i class="fa-upload fas"></i><span class="hide-on-med pl-2">Upload</span></button>
+<button class="px-4 py-4 bg-slate-800 hover:bg-slate-200 hover:text-slate-800 rounded-full" (click)="open('create')"><i class="fa-plus fas"></i><span class="hide-on-med pl-2">Folder</span></button>
 
 <div *ngIf="activated" class="fixed top-0 left-0 z-10 w-full h-full bg-black bg-opacity-60 flex" (click)="clickOff($event)">
     <div class="bg-slate-900 flex-auto rounded-lg z-20 uploadSuppliMenu">

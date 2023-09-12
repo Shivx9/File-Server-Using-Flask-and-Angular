@@ -15,7 +15,12 @@
     padding: 10%;
 }
 
+
+
+
+
 @media (min-width:360px) {
+    
     .uploadSuppliMenu{
         margin-left:10%;
         margin-right: 10%;

@@ -1,8 +1,9 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { GlobalWebName } from 'src/app/Globals';
+import { GlobalWebName, grid_pref_identifier } from 'src/app/Globals';
 import { Item } from 'src/app/interfaces/interfaces';
 import { MyApiEndpointService } from 'src/app/services/my-api-endpoint.service';
+import { GridViewChangeComponent } from '../grid-view-change/grid-view-change.component';
 
 @Component({
   selector: 'app-domain-sessions',
@@ -12,12 +13,16 @@ import { MyApiEndpointService } from 'src/app/services/my-api-endpoint.service';
 
 export class DomainSessionsComponent implements OnInit{
 
+  @ViewChild(GridViewChangeComponent) gridMenu!:GridViewChangeComponent
+  @Input() displayType!:string
+
   domains:Item[]=[]
   isEmpty = false
   hasLoaded = false
   errorWhileLoading= false
   itemCols = 0
   itemSizeThresh = 250
+
 
   constructor(private apiService:MyApiEndpointService, private title:Title){
     title.setTitle('Domains | ' + GlobalWebName)
@@ -31,7 +36,21 @@ export class DomainSessionsComponent implements OnInit{
   console.log(this.itemCols)
 }
 
+  getDisplay(){
+    if(this.displayType && this.displayType!=''){
+      return this.displayType
+    }
 
+    else{
+      const storedVal = localStorage.getItem(grid_pref_identifier)
+      if(storedVal && storedVal!=''){
+          return storedVal
+        }
+      else{
+        return 'tile'
+      }
+    } 
+  }
 
   ngOnInit(): void {
 

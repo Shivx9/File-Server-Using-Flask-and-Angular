@@ -2,10 +2,10 @@
 
 <div class="px-10 h-full w-full">
     <div *ngIf="!errorWhileLoading">
-        <p class="py-10 formTitle">Your Allocated Domain Sessions</p>
+        <p class="py-10 formTitle">Your Allocated Domain Sessions<app-grid-view-change (changedVal)="displayType = $event"></app-grid-view-change></p>
         
         <div *ngFor="let i of domains;">
-            <app-item [item]='i' [root]="i.id"></app-item>  
+            <app-item [item]='i' [root]="i.id" [displayType]="getDisplay()"></app-item>  
         </div>
 
         <!-- <mat-grid-list [cols]="itemCols" rowHeight="1:1" gutterSize="1rem">

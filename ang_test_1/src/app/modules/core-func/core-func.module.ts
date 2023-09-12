@@ -13,6 +13,7 @@ import { UploadBtnComponent } from 'src/app/components/upload-btn/upload-btn.com
 import { MaterialModule } from '../material/material.module';
 import { TaskProgressCardComponent } from 'src/app/components/task-progress-card/task-progress-card.component';
 import { LoadDetailsComponent } from 'src/app/components/load-details/load-details.component';
+import { GridViewChangeComponent } from 'src/app/components/grid-view-change/grid-view-change.component';
 
 
 
@@ -26,7 +27,8 @@ import { LoadDetailsComponent } from 'src/app/components/load-details/load-detai
     ContextMenuComponent,
     UploadBtnComponent,
     TaskProgressCardComponent,
-    LoadDetailsComponent
+    LoadDetailsComponent,
+    GridViewChangeComponent
   ],
   imports: [
     CommonModule,

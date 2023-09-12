@@ -1,4 +1,4 @@
-<p class=" underline-offset-8 pb-8 select-none">
+<div class=" underline-offset-8 select-none">
     <a [routerLink]="['/']"><i class="fas fa-home pr-3 hover:text-pink-600"></i></a> | 
     <a class="text-stone-300 underline p-4 hover:bg-slate-700 rounded-full" [routerLink]="['/explore/']" [queryParams]="{domain:currDomain, dir:''}">{{currDomain}}</a> : : 
     <a *ngFor="let crumb of crumbs; let i = index" [routerLink]="['/explore/']" queryParamsHandling="merge" [queryParams]="{dir:generateLink(i)}" >
@@ -7,4 +7,4 @@
         </div>
         /  
     </a> >>
-</p>
+</div>

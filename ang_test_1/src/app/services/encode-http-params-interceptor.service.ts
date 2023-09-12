@@ -22,7 +22,7 @@ class CustomEncoder implements HttpParameterCodec {
 }
 
 
-
+// For escaping URL params
 @Injectable()
 export class EncodeHttpParamsInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

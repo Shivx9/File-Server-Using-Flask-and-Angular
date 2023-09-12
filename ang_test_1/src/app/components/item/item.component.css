@@ -4,7 +4,7 @@
 }
 
 .itemTile:hover{
-    filter:drop-shadow(0 0 1.5rem rgb(255, 43, 107));
+    filter:drop-shadow(0 0 1rem rgb(255, 43, 107));
     position: relative;
     z-index: 1;
 }

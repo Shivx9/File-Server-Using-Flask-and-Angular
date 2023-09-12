@@ -35,7 +35,7 @@ export class ItemComponent{
 
   @Input() item!:Item
   @Input() root!:any
-  @Input() displayType:"tile" | "list" = "list"
+  @Input() displayType:string = "list"
   @Output() multi_select = new EventEmitter<boolean>
   @Output() reviveLoader = new EventEmitter
 

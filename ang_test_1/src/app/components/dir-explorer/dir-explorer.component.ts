@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, 
 import { DomSanitizer, SafeHtml, Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
-import { GlobalWebName, live_separator, safe_separator } from 'src/app/Globals';
+import { GlobalWebName, grid_pref_identifier, live_separator, safe_separator } from 'src/app/Globals';
 import { Item, contextMenuItem } from 'src/app/interfaces/interfaces';
 import { MyApiEndpointService } from 'src/app/services/my-api-endpoint.service';
 import { ContextMenuComponent } from '../context-menu/context-menu.component';
@@ -19,6 +19,7 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
   @ViewChild(ContextMenuComponent) ctxtMenu!:ContextMenuComponent
   @ViewChild('contextMenuContent', {read:ElementRef}) contextMenuContent!:ElementRef
   @Input() root!:string
+  @Input() displayType!:string
 
   activeTasks:{'name':string, 'id':string}[]=[
 
@@ -247,6 +248,22 @@ export class DirExplorerComponent implements OnInit, AfterViewInit{
         break
       }
     }
+  }
+
+  getDisplay(){
+    if(this.displayType && this.displayType!=''){
+      return this.displayType
+    }
+
+    else{
+      const storedVal = localStorage.getItem(grid_pref_identifier)
+      if(storedVal && storedVal!=''){
+          return storedVal
+        }
+      else{
+        return 'tile'
+      }
+    } 
   }
 
 

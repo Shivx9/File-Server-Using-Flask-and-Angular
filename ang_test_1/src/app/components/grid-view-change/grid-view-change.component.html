@@ -1,0 +1,10 @@
+<div class="inline-block float-right px-5 h-full hover:rounded-full hover:bg-slate-700"> 
+    <button *ngIf="currVal=='tile'" class="text-base h-full" (click)="toggleVal()">
+        <i  class="fas fa-square"></i>
+        <span class="inline-block pl-3">TILE</span>
+    </button>
+    <button *ngIf="currVal=='list'" class="text-base h-full" (click)="toggleVal()">
+        <i class="fas fa-list"></i>
+        <span class="inline-block pl-3">LIST</span>
+    </button>
+</div>
