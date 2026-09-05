@@ -35,13 +35,13 @@ This is intended as an open-source web-app for real-time shared access to files 
       <tr>
         <td>1</td>
         <td>1</td>
-        <td>C:#Users#Shivendra#Documents#SomeOtherFolder</td>
+        <td>C:#Users#SomeUser#Documents#SomeOtherFolder</td>
       </tr>
 
       <tr>
         <td>2</td>
         <td>1</td>
-        <td>C:#Users#Shivendra#Downloads#SomeProgram</td>
+        <td>C:#Users#SomeUser#Downloads#SomeProgram</td>
       </tr>
     </table>
 
